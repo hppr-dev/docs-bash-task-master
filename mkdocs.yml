@@ -17,9 +17,9 @@ nav:
   - Introduction: introduction.md
   - Task Files: task_files.md
   - Built In Tasks: built_in_tasks.md
-  - State: state.md
-  - Modules: modules.md
   - Drivers: drivers.md
+  - Modules: modules.md
+  - State: state.md
 
 theme:
 
