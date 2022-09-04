@@ -22,7 +22,7 @@ Arguments and tasks are defined in bash functions which are loaded by the main t
 Tasks in a bash task file are created as functions with the `task_` prefix in the tasks.sh file.
 Anything after `task_` is treated as the task name:
 
-`
+```
 #Example tasks.sh file
 
 # run with task clean
@@ -34,7 +34,7 @@ task_clean() {
 task_check_all() {
   ...
 }
-`
+```
 
 ### Arguments
 
