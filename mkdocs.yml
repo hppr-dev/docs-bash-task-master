@@ -14,7 +14,7 @@ repo_url: https://github.com/hppr-dev/bash-task-master
 edit_uri: https://github.com/hppr-dev/docs-bash-task-master/blob/master/docs
 
 nav:
-  - Introduction: introduction.md
+  - Introduction: index.md
   - Task Files: task_files.md
   - Built In Tasks: built_in_tasks.md
   - Drivers: drivers.md
