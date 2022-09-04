@@ -50,3 +50,14 @@ For example the following creates a task to change the value of PS1 to "(tester)
     fi
   }
 ```
+
+## Special State Variables
+
+Some state variables are used to effect the outside session.
+These special variables are wrapped with functions that are available to tasks.
+
+| Function             | Example                      |  State Variable     |Action |
+|----------------------|------------------------------|---------------------|-------|
+| set_return_directory | set_return_directory "$HOME" |  TASK_RETURN_DIR    | Change the current working directory for the outside bash session |
+| set_trap             | set_trap "echo exiting..."   |  TASK_TERM_TRAP     | Sets an exit trap for the outside bash session |
+| clean_up_state       | clean_up_state               |  DESTROY_STATE_FILE | Remove the current state file after finishing task execution | 

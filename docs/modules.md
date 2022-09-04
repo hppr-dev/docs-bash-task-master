@@ -2,7 +2,7 @@
 
 Modules are task files that are available globally throughout your user environment, i.e. anything deeper than your user directory.
 These modules are kept in the `$TASK_MASTER_HOME/modules` directory.
-Module filenames must end in -module.sh.
+Enabled modules end in -module.sh.
 Module files must be in the bash task file format.
 
 ## Managing modules

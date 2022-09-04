@@ -3,16 +3,14 @@
 Drivers are resposible for parsing/validating arguments and executing tasks.
 The driver defines the format and filename of a tasks file.
 By default, the only driver included in Bash Task Master is the bash driver.
-It is also the only driver supported for modules.
+Modules use the bash_driver.
 
 See [below](#writing-your-own-driver) on how to implement a driver to support different file formats.
 
 
-
-
 ## Bash Driver
 
-The bash driver is used whenever a tasks file is named tasks.sh.
+The bash driver is used whenever a tasks file is named tasks.sh or .tasks.sh.
 As the name implies, it is implemented in bash and the task file is a bash script.
 Arguments and tasks are defined in bash functions which are loaded by the main task function.
 
@@ -150,27 +148,37 @@ Note that short arguments can be combined to one combined argument, e.g -vBP, bu
 If a value for a single character argument is left out, it will be set to "T"
 
 
-## Writing Your Own Driver
+## Custom Drivers
 
-*This feature is under development*
+Task drivers are determined by the filename of the tasks file.
+The tasks.sh and .task.sh filenames are associated with the bash_driver.
+A custom driver would need to have a unique name for their tasks file.
 
-Drivers must set the following variables to the names of functions that are implemented in the `$TASK_MASTER_HOME/lib/drivers/` directory:
+The way that the task runner switches between drivers is by loading different sets of functions for loading, parsing, validating, and executing tasks.
+Drivers also need to be able to enumerate the tasks within a tasks file and provide help for tasks.
 
-* PARSE_ARGS
-* VALIDATE_ARGS
-* HAS_TASK
-* EXECUTE_TASK
-* DRIVER_HELP_TASK
+The following variables store which functions to call for each step of execution:
 
-The following driver file would define a bash driver that doesn't do anything with arguments and just executes the task:
+| Variable Name | Arguments | Description |
+|---------------|-----------|-------------|
+| DRIVER_LOAD_TASKS_FILE | TASKS_FILE | Loads the task file into the environment. This needs to set LOCAL_TASKS_UUID in the environment to make sure an isolated state file is created. |
+| DRIVER_PARSE_ARGS | $@ | Parses the arguments given to the task function. Should output what is wrong. Execution stops if this returns a non-zero exit code. Should set TASK_SUBCOMMAND, if subcommands are supported. |
+| DRIVER_VALIDATE_ARGS | None | Validates the current arguments. Should output what is wrong. Execution stops if this returns a non-zero exit code. |
+| DRIVER_EXECUTE_TASK | TASK_COMMAND | Executes the task with the given name. |
+| DRIVER_HELP_TASK | TASK_COMMAND | Shows the help for the given command. |
+| DRIVER_LIST_TASKS | TASKS_FILE | Lists the available tasks in the given tasks file. The list is used to verify that a certain task exists. |
+
+Different languages may be used to implement custom drivers but the driver must define these variables to interface with the execution environment.
+
+The following driver file would define an alternative bash driver that doesn't do anything with arguments and just executes hello, world, foo and bar tasks:
 
 ```
-# $TASK_MASTER_HOME/lib/drivers/my_dumb_driver.sh
-PARSE_ARGS=noop
-VALIDATE_ARGS=noop
-HAS_TASK=noop
-EXECUTE_TASK=execute_task
+DRIVER_LOAD_TASKS_FILE=source
+DRIVER_PARSE_ARGS=noop
+DRIVER_VALIDATE_ARGS=noop
+DRIVER_EXECUTE_TASK=execute_task
 DRIVER_HELP_TASK=not_helpful
+DRIVER_LIST_TASKS=acceptable_tasks
 
 noop() {
   return 0
@@ -184,23 +192,15 @@ not_helpful() {
   echo rtfd
 }
 
+acceptable_tasks() {
+  echo "hello world foo bar"
+}
+
 ```
-
-Different languages may be used to implement custom drivers but the driver must define these variables as bash functions or commands.
-
-### PARSE_ARGS
-
-### VALIDATE_ARGS
-
-### HAS_TASK
-
-### EXECUTE_TASK
-
-### DRIVER_HELP_TASK
 
 ### Installing a Custom Driver
 
-After the source for a driver is added to the `$TASK_MASTER_HOME/lib/drivers/` directory, the `$TASK_MASTER_HOME/lib/driver_defs.sh` file must be updated with the filename that specifies the driver should be used.
+After the source for a driver is added to the `$TASK_MASTER_HOME/lib/drivers/` directory, the `$TASK_MASTER_HOME/lib/drivers/driver_defs.sh` file must be updated with the filename that should be associated with the driver.
 
 For example, if I wanted to install a driver for a tasks file named .task-master.py I would need to add the following to the `driver_defs.sh` file:
 
@@ -208,4 +208,4 @@ For example, if I wanted to install a driver for a tasks file named .task-master
 TASK_DRIVERS[.task-master.py]=my_driver.sh
 ```
 
-where `my_driver.sh` would be the driver file in the `$TASK_MASTER_HOME/lib/driver/` directory the `PARSE_ARGS`, `VALIDATE_ARGS`, etc are implemented.
+where `my_driver.sh` is the filename of the driver in the `$TASK_MASTER_HOME/lib/drivers/` directory.

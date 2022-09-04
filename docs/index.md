@@ -18,36 +18,41 @@ Bash Task Master was designed with flexibility and expandibility in mind.
 
 ## Installation
 
-Install Bash Task Master by:
 
-1.Clone the repository and runn the install script:
+1\. Clone the repository
+
+
 ```
   git clone https://github.com/hppr-dev/bash-task-master
+```
+
+2\. Run the install script
+
+```
   cd bash-task-master
   ./install-task-master.sh 
 ```
-2.Log out and back in
 
-3.Run `task list` to verify that it is installed
+3\. Log out and back in
 
-## Your First Task File
+4\. Run `task list` to verify that it is installed
 
-Once Bash Task Master is installed:
+## Example Task File Tutorial
 
-1.Create a new directory
+1\. Create a new directory
 
 ```
 mkdir tutorial
 ```
 
-2.Initialize a tasks file
+2\. Initialize a tasks file
 
 ```
 cd tutorial
 task init
 ```
 
-3.Write a task
+3\. Write a task
 
 ```
 task edit # opens tasks.sh in vi by default
@@ -66,7 +71,7 @@ Add the following to the file and exit.
     }
     ```
 
-4.Run it!
+4\. Run it!
 
 ```
 task greet -n "internet" # Run the task
@@ -74,7 +79,7 @@ Running greet: task...
 Hello internet, good day to you!
 ```
 
-5.Get help on it!
+5\. Get help on it!
 
 ```
 task help greet          # Get help on the task
@@ -85,10 +90,23 @@ task help greet          # Get help on the task
       --name, -n str
 ```
 
-6.Validate it!
+6\. Validate it!
 
 ```
 task greet               # Fail the task
   Missing required argument: --name
+
+```
+
+
+# Calling Tasks
+
+```
+  task compose up -f --service frontend
+          │     │  │      │       │
+  Command ┘     │  │      │       └ ARG_SERVICE 
+     Subcommand ┘  │      └ Long Argument
+    Short Argument ┘
+
 
 ```

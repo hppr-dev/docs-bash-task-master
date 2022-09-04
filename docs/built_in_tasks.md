@@ -2,7 +2,7 @@
 
 The following is a summary of all built in tasks that are shipped with bash task master.
 
-In the examples all arguments are given in their long form, but a short arguments are also accepted.
+In the examples all arguments are given in their long form, but short arguments are also accepted.
 The short form arguments are standardized as the first letter of the long form.
 For example, the short form of `--dir` would be `-d`.
 
@@ -54,7 +54,7 @@ The `--local` flag will only show the local tasks:
 ## Edit
 
 Edit the current local tasks file.
-Opens the editor specified in the `DEFAULT_EDITOR` variable specified in  `$TASK_MASTER_HOME/config.sh`.
+Opens the editor specified in the `DEFAULT_EDITOR` variable in `$TASK_MASTER_HOME/config.sh`.
 After exiting the editor bash-task-master will check that the tasks.sh file is valid bash.
 If the file is not valid it will give you the option to either open it back up or revert the changes.
 
@@ -69,7 +69,11 @@ Bookmark locations.
 Bookmark the current location:
 
 ```
+  # Saves the current directory using the current directory name
   task bookmark
+
+  # Saves the current directory as loc
+  task bookmark --name loc
 ```
 
 Bookmark another location:
