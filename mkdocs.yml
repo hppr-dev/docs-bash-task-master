@@ -47,11 +47,11 @@ theme:
   
   # Header
   #
-  #- header.autohide # Hide header when user scrolls past a specific point.
+  - header.autohide # Hide header when user scrolls past a specific point.
   
   # Navigation:
   #
-  #- navigation.expand      # Expand all collapsable sections.
+  - navigation.expand      # Expand all collapsable sections.
   #- navigation.instant     # Instant loading pages.
   #- navigation.indexes     # Attach pages directly to Sections. Incompatible with "toc.integrate"
   #- navigation.sections    # Render top sections as groups.
@@ -111,7 +111,7 @@ markdown_extensions:
   #- pymdownx.smartsymbols:
   #- pymdownx.snippets:
   #- pymdownx.striphtml:
-  #- pymdownx.superfences:
+  - pymdownx.superfences:
   #- pymdownx.tabbed:
   #- pymdownx.tasklist:
   #- pymdownx.tilde:

@@ -20,8 +20,8 @@ Arguments and tasks are defined in bash functions which are loaded by the main t
 Tasks in a bash task file are created as functions with the `task_` prefix in the tasks.sh file.
 Anything after `task_` is treated as the task name:
 
-```
-#Example tasks.sh file
+``` bash
+# Example tasks.sh file
 
 # run with task clean
 task_clean() {
@@ -89,40 +89,40 @@ In the task we could access these values as `ARG_NAME`, `ARG_HOST` and `ARG_ITER
 
 If the following arguments are defined for the build task:
 
-```
+``` bash
 
-  arguments_build() {
-    SUBCOMMANDS="help|frontend|backend|all"
-    FRONTEND_REQUIREMENTS="out:o:str in:i:str"
-    FRONTEND_OPTIONS="VERBOSE:v:bool LINT:L:bool DIR:d:str"
-    BACKEND_REQUIREMENTS="PID:P:int"
-    BACKEND_OPTIONS="VERBOSE:v:bool BUILD-FIRST:B:bool"
-  }
+arguments_build() {
+  SUBCOMMANDS="help|frontend|backend|all"
+  FRONTEND_REQUIREMENTS="out:o:str in:i:str"
+  FRONTEND_OPTIONS="VERBOSE:v:bool LINT:L:bool DIR:d:str"
+  BACKEND_REQUIREMENTS="PID:P:int"
+  BACKEND_OPTIONS="VERBOSE:v:bool BUILD-FIRST:B:bool"
+}
 
 ```
 
 Then all of the following calls would succeed:
 
-```
+``` bash
 
-  $ task build frontend --out outdir --in infile
-  $ task build frontend --out outdir --in infile --lint --verbose
-  $ task build frontend -o outdir -i infile -L -v
-  $ task build all
-  $ task build backend --pid 123
-  $ task build backend -P 123
-  $ task build backend -vBP 123
-  $ task build frontend -Lo outdir -vi infile
+task build frontend --out outdir --in infile
+task build frontend --out outdir --in infile --lint --verbose
+task build frontend -o outdir -i infile -L -v
+task build all
+task build backend --pid 123
+task build backend -P 123
+task build backend -vBP 123
+task build frontend -Lo outdir -vi infile
 
-```
+``` 
 
 But none of the following:
 
-```
+``` bash
 
-  $ task build frontend                              # Missing required arguments
-  $ task build frontend --in infile --lint --verbose # Unknown argument --in
-  $ task build backend -P 12 -v garbage              # Verbose is not a bool
+task build frontend                              # Missing required arguments
+task build frontend --in infile --lint --verbose # Unknown argument --in
+task build backend -P 12 -v garbage              # Verbose is not a bool
 
 ```
 
@@ -172,7 +172,7 @@ Different languages may be used to implement custom drivers but the driver must 
 
 The following driver file would define an alternative bash driver that doesn't do anything with arguments and just executes hello, world, foo and bar tasks:
 
-```
+``` bash
 DRIVER_LOAD_TASKS_FILE=source
 DRIVER_PARSE_ARGS=noop
 DRIVER_VALIDATE_ARGS=noop
@@ -204,7 +204,7 @@ After the source for a driver is added to the `$TASK_MASTER_HOME/lib/drivers/` d
 
 For example, if I wanted to install a driver for a tasks file named .task-master.py I would need to add the following to the `driver_defs.sh` file:
 
-```
+``` bash
 TASK_DRIVERS[.task-master.py]=my_driver.sh
 ```
 
