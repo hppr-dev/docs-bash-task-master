@@ -55,7 +55,7 @@ Every task that is defined in the task file is never loaded into the user's runn
 The task function loads the task file in a subshell, isolating it from the current environment.
 Tasks can not have side effects on the current environment, other than those explicitly made by the user.
 
-For more on how to change the current environment refer to the [state function documentation](https://bash-task-master.readthedocs.io/state/).
+For more on how to change the current environment refer to the [state function documentation](https://bash-task-master.readthedocs.io/en/latest/state/).
 
 ## Task Variables
 
