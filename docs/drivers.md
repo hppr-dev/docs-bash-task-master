@@ -5,7 +5,7 @@ The driver defines the format and filename of a tasks file.
 By default, the only driver included in Bash Task Master is the bash driver.
 Modules use the bash_driver.
 
-See [below](#writing-your-own-driver) on how to implement a driver to support different file formats.
+See [below](#custom-drivers) on how to implement a driver to support different file formats.
 
 
 ## Bash Driver
