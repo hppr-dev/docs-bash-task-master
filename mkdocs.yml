@@ -20,6 +20,7 @@ nav:
   - Drivers: drivers.md
   - Modules: modules.md
   - State: state.md
+  - Repositories: repositories.md
 
 theme:
 

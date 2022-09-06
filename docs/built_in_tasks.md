@@ -145,22 +145,32 @@ task global debug
 task global debug --command build
 
 # Set a variable for a command.
-# For example, to set myvar to 10 for the clean command:
-task global set --key myvar --value 10 --command clean
+# For example, to set myvar to 10 for the build command:
+task global set --key myvar --value 10 --command build
 
-# Remove a variable for a comman.
-# For example, to unset myvar for the clean command:
-task global unset --key myvar --command clean
+# Remove a variable for a command.
+# For example, to unset myvar for the build command:
+task global unset --key myvar --command build
 
 
 # Edit the variables for a command.
 # Uses the `DEFAULT_EDITOR` setting in `$TASK_MASTER_HOME/config.sh` as the editor.
 # For example, to edit the settings for the clean command:
-#task global edit --command clean
+task global edit --command clean
 
 
 # Clean up empty locations and stale location files.
 # This will remove any state files with no values in them and remove any bookmarks that refer to non existant locations.
 task global clean
+
+# Enable the yaml driver
+# Will search for the driver in TASK_REPOS
+task global driver --enable yaml
+
+# Disable a driver
+task global driver --disable yaml
+
+# List drivers
+task global driver --list
 
 ```
