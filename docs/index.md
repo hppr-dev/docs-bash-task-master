@@ -52,7 +52,7 @@ cd tutorial
 
 ```
 
-2\. Initialize a tasks file
+2\. Initialize a task file
 
 ``` bash
 

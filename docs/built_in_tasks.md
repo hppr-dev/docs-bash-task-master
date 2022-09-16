@@ -10,19 +10,25 @@ This information can also be easily accessed by running `task help COMMAND_NAME`
 
 ## Init
 
-Initialize a local tasks file.
+Initialize a local task file.
 
 ``` bash
 
-# Create a tasks.sh file in the current directory
-# Creates a bookmark with the directory name
+# Create a .tasks.sh file in the current directory
+# Uses the default bash template
+# Adds a bookmark with the directory name
 task init
 
 # Create a tasks.sh file in target directory and names it project
 task init --dir target --name project
 
-# Create a .tasks.sh file instead of a tasks.sh file
-task init --hidden
+# Create a .tasks.sh file from a given template
+task init --template custom
+
+# Create default task file for mydriver
+# If a template does not exist, create an empty task file that uses the naming convention of mydriver
+# NOTE: -D is the short argument for --driver
+task init --driver mydriver
 
 ```
 
@@ -45,7 +51,7 @@ task list --local
 
 ## Edit
 
-Edit the current local tasks file.
+Edit the current local task file.
 Opens the editor specified in the `DEFAULT_EDITOR` variable in `$TASK_MASTER_HOME/config.sh`.
 After exiting the editor bash-task-master will check that the tasks.sh file is valid bash.
 If the file is not valid it will give you the option to either open it back up or revert the changes.
@@ -103,6 +109,24 @@ task help mycommand
 
 ```
 
+## Template
+
+Manage task file templates
+
+``` bash
+# Edit the default bash template
+task template edit --name bash
+
+# Edit/create a new custom template
+task template edit --name custom
+
+# Remove the custom template
+task template rm --name custom
+
+# List templates
+task template list
+```
+
 ## Module
 
 Manage local modules.
@@ -112,10 +136,10 @@ Manage local modules.
 
 # Enable mymodule
 # Searches TASK_REPOS for the module if it not found locally.
-task module enable --id mymodule
+task module enable --name mymodule
 
 # Disable mymodule
-task module disable --id mymodule
+task module disable --name mymodule
 
 # List all enabled or disabled modules
 task module list --all
@@ -128,6 +152,27 @@ task module list --enabled
 
 # List all diabled modules
 task module list --disabled
+```
+
+## Driver
+
+Manage task drivers
+
+``` bash
+
+# Enable mydriver
+# Searches TASK_REPOS for the driver if it is not found locally
+task driver enable --name mydriver
+
+# Disable mydriver
+task driver disable --name mydriver
+
+# List installed drivers
+task driver list
+
+# List drivers available remotely
+task driver list --remote
+
 ```
 
 ## Global
@@ -162,15 +207,4 @@ task global edit --command clean
 # Clean up empty locations and stale location files.
 # This will remove any state files with no values in them and remove any bookmarks that refer to non existant locations.
 task global clean
-
-# Enable the yaml driver
-# Will search for the driver in TASK_REPOS
-task global driver --enable yaml
-
-# Disable a driver
-task global driver --disable yaml
-
-# List drivers
-task global driver --list
-
 ```

@@ -15,12 +15,12 @@ edit_uri: https://github.com/hppr-dev/docs-bash-task-master/blob/master/docs
 
 nav:
   - Introduction: index.md
-  - Task Files: task_files.md
   - Built In Tasks: built_in_tasks.md
-  - Drivers: drivers.md
-  - Modules: modules.md
+  - Task Files: task_files.md
   - State: state.md
-  - Repositories: respositories.md
+  - Modules: modules.md
+  - Drivers: drivers.md
+  - Repositories: repositories.md
 
 theme:
 
@@ -30,12 +30,12 @@ theme:
   palette:
     scheme: 'slate'
 
-    primary: 'teal'
+    primary: 'light blue'
     accent: 'deep purple'
     
-  #font:
-  #  text: 'Roboto'
-  #  code: 'Roboto Mono'
+  font:
+    text: 'Roboto'
+    code: 'Roboto Mono'
   
   #language: 'en'
   #direction: 'ltr'
