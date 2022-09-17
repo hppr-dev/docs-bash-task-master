@@ -1,14 +1,18 @@
 # Drivers
 
-Drivers are resposible for parsing/validating arguments and executing tasks.
-The driver defines the format and filename of a task file.
+Drivers are resposible for executing, listing and providing help for tasks.
+The driver defines the format and filename for a task file.
 By default, the only driver included in Bash Task Master is the bash driver.
-Modules use the bash_driver.
+Built-in tasks and modules use the bash driver.
 
 See [below](#custom-drivers) on how to implement a driver to support different file formats.
 
 Drivers are managed by the built-in [driver](/built_in_tasks#driver) module.
-Note that disabling a driver is non destructive, files will remain in place but the association to the file name will be removed.
+
+!!! note
+    Disabling a driver is non destructive.
+    Driver files remain in place but the filename association is temporarily removed.
+    This is so that if you want to re-enable a driver, it does not redownload the assets.
 
 
 ## Bash Driver
@@ -79,7 +83,7 @@ The arg-type specifies what type the argument is. See [below](#supported-argumen
     
     ```
 
-The above specification specifies that the compose command has 3 optional arguments: --name or -n, --host or -h, --iterations or -i.
+The above specification specifies that the compose command has 3 optional arguments: `--name` or `-n`, `--host` or `-h`, `--iterations` or `-i`.
 In the task we could access these values as `ARG_NAME`, `ARG_HOST` and `ARG_ITERATIONS` respectively.
 
 
@@ -146,9 +150,9 @@ All types, except for bool, require that a value is given.
 With bool arguments, the argument being present automatically sets the `ARG_VAR`.
 Note that short arguments can be combined to one combined argument, e.g -vBP, but only the last can be a non bool.
 
-* A single character may be confused as a boolean at validation time.
-If a value for a single character argument is left out, it will be set to "T"
-
+!!! note
+    A single character may be confused as a boolean at validation time.
+    If a value for a single character argument is left out, it will be set to "1"
 
 ## Custom Drivers
 
