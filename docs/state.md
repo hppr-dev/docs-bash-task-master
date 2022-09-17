@@ -10,7 +10,7 @@ persist_var "MY_VAR" "10"
 
 The next time the same task is run $MY_VAR will be set to 10, but not in your outside environment.
 This also sets the variable in the current task as well.
-The variable will remain set until the following is called within a subtask of task:
+The variable will remain set until the following is called within the same task at a later time:
 
 ``` bash
 remove_var "MY_VAR"

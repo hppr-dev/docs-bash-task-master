@@ -12,25 +12,25 @@ This task is responsible for downloading, enabling, disabling and listing local 
 
 ## Local Modules
 
-Modules may be created locally by placing a `-module.sh` file directly in $TASK_MASTER_HOME/modules.
+Modules may be created locally by placing a file ending in `-module.sh` directly in `$TASK_MASTER_HOME/modules`.
 Any file that ends in `-module.sh` will be loaded when running the task.
 
 !!! note
     When writing modules it is important to be aware of possible collisions with other modules that are loaded.
     It is a good idea to mark all module functions as read only by running `readonly -f task_mymod` at the end of the module.
-    This will notify module users if any function is redeclared.
+    This will notify module users if any function has been redeclared.
 
 ## Repository Modules
 
 Modules may also be hosted remotely to share modules between users and installations.
 
-Add another repo by updating TASK_REPO in the $TASK_MASTER_HOME/config.sh file with the uri of the repositories inventory file:
+Add another repo by updating `TASK_REPO` in the `$TASK_MASTER_HOME/config.sh` file with the uri of the repositories inventory file:
 
 ``` bash
 TASK_REPOS="https://raw.githubusercontent.com/hppr-dev/btm-extra/main/inventory https://myrepo/inventry"
 ```
 
-After adding the repository, any module hosted on the added repository is enablable by running ` task module enable -n MOD_NAME `.
+After adding the repository, any module hosted on the added repository is enablable by running `task module enable -n MOD_NAME`.
 
 !!! warning
     It is important to vet and review any module repositories that you would like to use.

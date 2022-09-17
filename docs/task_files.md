@@ -4,7 +4,7 @@ Task files are the meat and potatoes of Bash Task Master.
 They hold all of the important procedures for a particular context.
 
 By default, Bash Task Master supports the bash task syntax for task files.
-See the [bash driver documentation](/drivers/#bash-driver) for an indepth overview of the bash task syntax.
+See the [bash driver documentation](/drivers#bash-driver) for an indepth overview of the bash task syntax.
 
 ## Context Scoping
 
@@ -51,16 +51,16 @@ Running `task` in the following contexts:
 
 ## Environment Isolation
 
-Every task that is defined in the task file is never loaded into the user's running session.
+No task that is defined in the task file is ever loaded permanently into the user's running session.
 The task function loads the task file in a subshell, isolating it from the current environment.
-Tasks can not have side effects on the current environment, other than those explicitly made by the user.
+Therefore, tasks can not have side effects on the current environment, other than those explicitly made by the user.
 
 For more on how to change the current environment refer to the [state function documentation](/state).
 
 Bash Task Master defines 3 functions in the user session: `task` `_TaskTabCompletion` and `_tmverbose_echo`.
 It also defines/relies on 4 environment variables `TASK_MASTER_HOME`, `TASK_REPOS`, `DEFAULT_EDITOR` and `DEFAULT_TASK_DRIVER`.
 
-The `TASK_MASTER_HOME` variable should be set in the .bashrc during installation and the other values are set in the `$TASK_MASTER_HOME/config.sh` file.
+The `TASK_MASTER_HOME` variable should be set in the .bashrc after installation and the other values are set in the `$TASK_MASTER_HOME/config.sh` file.
 
 Any other additions to the user environment have to be initiated by the user.
 
@@ -69,7 +69,7 @@ Any other additions to the user environment have to be initiated by the user.
 Each task function is spawned inside of a subshell by the task function.
 This means that the child process in which tasks are being run have access to the environment variables that have been set by the task function.
 
-The following is a summary of the variables that are used in the task function, and are therefore available to use inside of tasks:
+The following is a summary of the variables that are set in the task function, and are therefore available to use inside of tasks:
 
 | Variable Name  | Description | Example Value |
 |----------------|-------------|---------------|
@@ -85,7 +85,7 @@ The following is a summary of the variables that are used in the task function, 
 | DEFAULT_TASK_DRIVER | The default task driver to use when initializing task files | bash |
 
 
-For the sake of completeness, the following variables are also accessable, but are for advanced use:
+For the sake of completeness, the following variables are also accessable, but should rarely be needed directly:
 
 | Variable Name  | Description | Example Value |
 |----------------|-------------|---------------|
@@ -95,8 +95,8 @@ For the sake of completeness, the following variables are also accessable, but a
 | DEFAULT_EDITOR | The default editor to use when editing is called for. | vim |
 | TASK_DRIVER_DICT | The associative array mapping task driver names to task driver files | bash=bash_driver.sh |
 | TASK_FILE_NAME_DICT | The associatvie array mapping task files to task drivers | tasks.sh=bash |
-| TASK_DRIVER | The driver file of the current task | $TASK_MASTER_HOME/lib/drivers/bash_driver.sh |
-| TASK_FILE_DRIVER | The driver file of the current task file | $TASKS_MASTER_HOME/lib/drivers/bash_driver.sh |
+| TASK_DRIVER | The name of the running task driver | bash |
+| TASK_FILE_DRIVER | The name of the driver for the current task file | bash |
 | TASK_FILE_NAME | The name of the current task file | tasks.sh |
 | TASKS_FILE_FOUND | Denotes whether a task file was found in the current scope. (useful for modules) | T |
 | DRIVER_EXECUTE_TASK | Driver specific execution function | bash_execute |
@@ -105,8 +105,8 @@ For the sake of completeness, the following variables are also accessable, but a
 | DRIVER_VALIDATE_TASK_FILE | Driver function to validate task file | bash_validate_file |
 | LOCAL_TASKS_REG | A regex list of local tasks | `build|run|kill` |
 | GLOBAL_TASKS_REG | A regex list of global tasks | `list|help|global|driver|module` |
-| GLOBAL_VERBOSE | Set to true to log tmverbose_echo calls to stdout | 1 |
-| GLOBAL_TASK_FILE | The file to load global tasks | %TASK_MASTER_HOME/load-global.sh |
+| GLOBAL_VERBOSE | Set to true to log _tmverbose_echo calls to stdout | 1 |
+| GLOBAL_TASK_FILE | The file to load global tasks | $TASK_MASTER_HOME/load-global.sh |
 
 ### Task Variable Conventions
 
@@ -125,6 +125,11 @@ The following conventions are followed when deciding a variable name:
 
 Task file templates may be used when [initializing](/built_in_tasks#init) a new task file.
 By default, the template with the same name as the driver is used.
-The default driver being the bash driver, the bash template is used.
 Manage templates by using the built in [template](/built_in_tasks#template) command.
 To edit or create a template run `task template edit -n my_tmpl`
+
+!!! note
+    A default bash driver template is included when installing bash task master.
+    This template is meant to serve as a quick reference to start a custom task file.
+    This template may be managed using the [template](/built_in_tasks#template) task.
+
