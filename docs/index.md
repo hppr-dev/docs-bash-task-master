@@ -1,20 +1,26 @@
 # Introduction
 
-Bash Task Master enhances bash by providing a way to create context for directories within project.
+Bash Task Master is a utility to organize and write specialized bash scripts AKA tasks.
+These tasks can either be centrally stored in a global context or stored within a project to create a shared context.
 
 Features:
 
-  - Centralized -- Tasks can be run in any folder under your home directory without adding them to your path
+  - Centralized Management
+    - Manage available tasks from anywhere in your home directory without modifying your PATH
+    - Store variables that persist inside a particular context
 
-  - Parsed and Validated Input -- Easily access named command line arguments
+  - Parse and Validate Input
+    - Reference arguments by name ($ARG_VAR), not by number ($1)
+    - Ensure that arguments match an expected format
 
-  - Scoped -- Different tasks are loaded depending on the current working directory
+  - Scoped Context
+    - Project specific tasks are created to only be available within a project directory
+    - Global tasks can be added to be available anywhere in your home directory 
 
-  - Isolated -- Environment variables aren't affected (unless you want them to be)
+  - Isolated Runtime
+    - Task variables do not pollute the user session
 
-
-Bash Task Master was designed with flexibility and expandibility in mind.
-
+Bash Task Master was designed to be flexibile and expandible.
 
 ## Installation
 
@@ -37,9 +43,8 @@ cd bash-task-master
 
 ```
 
-3\. Log out and back in
-
-4\. Run ` task list ` to verify that it is installed
+3\. Run ` task list ` to verify that it was installed
+   - You may need to restart your bash session to get it loaded.
 
 ## Quick Start
 
@@ -118,13 +123,24 @@ Missing required argument: --name
 
 # Calling Tasks
 
-```
+Tasks are called using the `task` command.
+This command takes any number of arguments.
+The first argument is always interpreted as the command you would like to run.
+Everything after the command depends on what type of task file you are using.
 
-  task compose up -f --service frontend
-          │     │  │      │       │
-  Command ┘     │  │      │       └ ARG_SERVICE 
-     Subcommand ┘  │      └ Long Argument
-    Short Argument ┘
+The default way that commands are parsed is with the [bash task syntax](/drivers#bash-driver).
+This syntax interprets the first argument not starting with `-` after the command as an optional subcommand.
+Everything after the subcommand is required to be an argument.
 
 
-```
+!!! example
+    ```
+
+      task compose up -f --service frontend
+              │     │  │      │       │
+      Command ┘     │  │      │       └ ARG_SERVICE 
+         Subcommand ┘  │      └ Long Argument
+        Short Argument ┘
+
+
+    ```
