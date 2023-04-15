@@ -71,6 +71,9 @@ theme:
   #
   - toc.integrate          # Include the TOC sections in the left navugation.
   
+  # Code copy 
+  - content.code.copy
+  
   icon:
     logo: 'material/library'
     repo: 'material/library'
