@@ -24,27 +24,17 @@ Bash Task Master was designed to be flexibile and expandible.
 
 ## Installation
 
+You do not need elevated permissions to install.
+It is preferred to run bash-task-master as a non-sudo user.
 
-1\. Clone the repository
-
-
+1\. Install the latest version:
 ``` bash
-
-git clone https://github.com/hppr-dev/bash-task-master
-
+curl -L https://hppr.dev/install-btm.sh | bash
 ```
+    
+2\. Log out
 
-2\. Run the install script
-
-``` bash
-
-cd bash-task-master
-./install-task-master.sh 
-
-```
-
-3\. Run ` task list ` to verify that it was installed
-   - You may need to restart your bash session to get it loaded.
+3\. Log back in
 
 ## Quick Start
 
