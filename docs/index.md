@@ -124,13 +124,4 @@ Everything after the subcommand is required to be an argument.
 
 
 !!! example
-    ```
-
-      task compose up -f --service frontend
-              │     │  │      │       │
-      Command ┘     │  │      │       └ ARG_SERVICE 
-         Subcommand ┘  │      └ Long Argument
-        Short Argument ┘
-
-
-    ```
+    ![Task Call](assets/task-examplepic.png)
