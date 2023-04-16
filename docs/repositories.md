@@ -1,7 +1,7 @@
 # Repositories
 
 Repositories store modules and drivers for sharing and reuse.
-Update the `TASK_REPOS` config value in `$TASK_MASTER_HOME/config.sh` to add a module repository.
+Update the `TASK_REPOS` config value in `$TASK_MASTER_HOME/config.env` to add a module repository.
 By default, `TASK_REPOS` is set to use the official extras repository on github: [btm-extra](https://github.com/hppr-dev/btm-extra).
 The `TASK_REPOS` value should be a space separated list of URIs of repository inventory files.
 

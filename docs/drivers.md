@@ -72,16 +72,7 @@ The arg-type specifies what type the argument is. See [below](#supported-argumen
 
 !!! example
 
-    ```
-                     ┌─ these are optional arguments
-                     │
-             COMPOSE_OPTIONS="name:n:int host:h:ip iterations:i:int"
-                                │  │  │
-    Can be specified by --name ─┘  │  └─ Will fail if not an integer
-                                   │
-            Can be specified by -n ┘
-    
-    ```
+    ![Arguments Reference](assets/args-ref.png)
 
 The above specification specifies that the compose command has 3 optional arguments: `--name` or `-n`, `--host` or `-h`, `--iterations` or `-i`.
 In the task we could access these values as `ARG_NAME`, `ARG_HOST` and `ARG_ITERATIONS` respectively.
@@ -100,9 +91,9 @@ If the following arguments are defined for the build task:
 arguments_build() {
   SUBCOMMANDS="help|frontend|backend|all"
   FRONTEND_REQUIREMENTS="out:o:str in:i:str"
-  FRONTEND_OPTIONS="VERBOSE:v:bool LINT:L:bool DIR:d:str"
-  BACKEND_REQUIREMENTS="PID:P:int"
-  BACKEND_OPTIONS="VERBOSE:v:bool BUILD-FIRST:B:bool"
+  FRONTEND_OPTIONS="verbose:v:bool lint:L:bool dir:d:str"
+  BACKEND_REQUIREMENTS="pid:P:int"
+  BACKEND_OPTIONS="verbose:v:bool build-first:B:bool"
 }
 
 ```
@@ -202,16 +193,18 @@ acceptable_tasks() {
 ### Installing a Custom Driver
 
 !!! note
-    These steps only apply to drivers you develop locally.
-    See [repositories](/repositories#repository-drivers) for information on how to do this automatically with a repository.
+    This step only applies to drivers outside of repositories.
+    It is handled automatically when running `task driver enable`,
+    See [repositories](/repositories#repository-drivers) for more information.
 
 After the source for a driver is added to the `$TASK_MASTER_HOME/lib/drivers/` directory, the `$TASK_MASTER_HOME/lib/drivers/installed_drivers.sh` file must be updated with the filename that should be associated with the driver.
 
-For example, if I wanted to install a driver for a task file named .task-master.py I would need to add the following to the `driver_defs.sh` file:
+For example, to install the pydriver driver to process task files named .tasks.py, add the following to the `installed_drivers.sh` file:
 
 ``` bash
-TASK_FILE_NAME_DICT[.task-master.py]=my_driver
-TASK_DRIVER_DICT[my_driver]=my_driver.sh
+
+TASK_FILE_NAME_DICT[.tasks.py]=pydriver
+TASK_DRIVER_DICT[pydriver]=pydriver.sh
 
 ```
 

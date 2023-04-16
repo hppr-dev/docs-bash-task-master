@@ -89,7 +89,6 @@ For the sake of completeness, the following variables are also accessable, but s
 |----------------|-------------|---------------|
 | LOCATION_FILE | File that stores all of the stored locations. Don't mess with this file unless you are confident in fixing it. | /home/btm/.task-master/state/locations.vars |
 | STATE_FILE     | File that stores the state for a given command | /home/btm/.task-master/state/project_one/build.vars |
-| DEFAULT_EDITOR | The default editor to use when editing is called for. | vim |
 | TASK_DRIVER_DICT | The associative array mapping task driver names to task driver files | bash=bash_driver.sh |
 | TASK_FILE_NAME_DICT | The associatvie array mapping task files to task drivers | tasks.sh=bash |
 | TASK_DRIVER | The name of the running task driver | bash |
@@ -103,7 +102,7 @@ For the sake of completeness, the following variables are also accessable, but s
 | LOCAL_TASKS_REG | A regex list of local tasks | `build|run|kill` |
 | GLOBAL_TASKS_REG | A regex list of global tasks | `list|help|global|driver|module` |
 | GLOBAL_VERBOSE | Set to true to log _tmverbose_echo calls to stdout | 1 |
-| GLOBAL_TASK_FILE | The file to load global tasks | $TASK_MASTER_HOME/load-global.sh |
+| GLOBAL_TASK_FILE | The file to load global tasks | $TASK_MASTER_HOME/lib/global-tasks.sh |
 
 ### Task Variable Conventions
 
