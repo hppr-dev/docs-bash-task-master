@@ -1,13 +1,12 @@
 site_name: Bash Task Master
 site_description: 'Bash Task Master Documentation'
-site_author: 'hppr.dev'
+site_author: 'Stephen Walker'
 site_url: 'https://bash-task-master.readthedocs.io'
 
-#copyright: |
-#  &copy; Author
+copyright: |
+  &copy; hppr.dev
 
 docs_dir: docs/
-
 
 repo_name: hppr-dev/bash-task-master
 repo_url: https://github.com/hppr-dev/bash-task-master
@@ -15,6 +14,7 @@ edit_uri: https://github.com/hppr-dev/docs-bash-task-master/blob/master/docs
 
 nav:
   - Introduction: index.md
+  - Walkthrough: walkthrough.md
   - Built In Tasks: built_in_tasks.md
   - Task Files: task_files.md
   - State: state.md
@@ -26,7 +26,8 @@ theme:
 
   name: 'material'
   #custom_dir: 'theme'
-  #favicon: 'assets/images/favicon.png'
+  favicon: 'assets/logo.png'
+  #logo: 'assets/logo.png'
   palette:
     scheme: 'slate'
 
@@ -79,6 +80,8 @@ theme:
     repo: 'material/library'
   
 #extra_css:
+#  - stylesheets/extra.css
+
 #extra_javascript:
 
 extra:
