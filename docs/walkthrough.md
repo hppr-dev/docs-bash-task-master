@@ -5,7 +5,7 @@ From the beginning bash task master was meant as a general purpose tool, not foc
 It was not meant to replace tools like `make`, `gradle` or `npm`, but augment them and provide a way to standardize and document project interfaces.
 
 For example, let's say we wanted to lint, test, and run every project that we worked on.
-Without bash task master, we would need to remember the command and arguments for each tool that performs the task.
+Without bash task master, we would need to remember the command and arguments for each tool that performs each individual command.
 With bash task master, it's as easy as running `task lint`, `task test`, and `task run` in a project directory.
 
 Task files act as documentation for important processes.
@@ -166,5 +166,132 @@ mydb other another
 
 # Stop all of the running containers
 $ t stop
+
+```
+
+## Make it portable
+
+Now that we have our task written, suppose we want to make it available to other projects in our local environment.
+There are two ways to accomplish this: modules or templates
+
+### Making a template
+
+Templates are useful for when you have a basic task file that you like to tweak for each of your projects.
+All we need to do is create a template file in `$TASK_MASTER_HOME/templates` and then use that template as an argument to `task init`.
+
+For our example lets copy our tasks.sh file to a file named pgdocker.template:
+
+``` bash
+cp tasks.sh $TASK_MASTER_HOME/templates/pgdocker.template
+```
+
+Then to use it as a template we just need to specify `--template pgdocker` (`-t` for short) when calling `task init`:
+
+``` bash
+cd
+mkdir new_project
+cd new_project
+task init -t pgdocker
+```
+
+The created tasks.sh file is a direct copy of the pgdocker.template file. 
+We can list our tasks and our templates:
+
+``` {.bash .no-copy}
+$ task list
+Running list: task...
+run	      show	    stop
+
+$ task template list
+Running template:list task...
+pgdocker
+```
+
+### Making a module
+
+Modules are useful for when you want to make a task available to all projects in the global scope.
+Modules are stored in the `$TASK_MASTER_HOME/modules` directory and they must end in `-module.sh`.
+Any task defined in a module must be marked as readonly to show up in the global scope.
+This prevents local tasks from overwriting module functions.
+As a general rule, there should only be a single task per module.
+
+In the case of converting our task file to a module, we'll have to do some editing to put all of our tasks together.
+In `$TASK_MASTER_HOME/modules/pgdocker-module.sh` we can write:
+
+``` bash
+
+arguments_pgdocker() {
+  PGDOCKER_DESCRIPTION="Manage postgres containers"
+  SUBCOMMANDS="run|show|stop"
+
+  RUN_DESCRIPTION="Start a postgres container"
+  RUN_OPTIONS="name:n:str detach:d:bool"
+
+  SHOW_DESCRIPTION="Show the running postgres containers"
+
+  STOP_DESCRIPTION="Stop all the running postgres containers"
+}
+
+task_pgdocker() {
+  if [[ "$TASK_SUBCOMMAND" == "run" ]]
+  then
+    if [[ -z "$ARG_NAME" ]]
+    then
+      ARG_NAME=mydb
+    fi
+    if [[ -n "$ARG_DETACH" ]]
+    then
+      extra_args=-d
+      # Notice the change here to persist_module_var
+      persist_module_var "STARTED" "$STARTED $ARG_NAME"
+    fi
+    docker run $extra_args --rm -it -e POSTGRES_PASSWORD=secret --name $ARG_NAME postgres
+
+  elif [[ "$TASK_SUBCOMMAND" == "show" ]]
+  then
+    echo Started containers: $STARTED
+
+  elif [[ "$TASK_SUBCOMMAND" == "stop" ]]
+  then
+    docker stop $STARTED
+    # Notic the change here to remove_module_var
+    remove_module_var "STARTED"
+  fi
+}
+
+# Tasks in modules are required to be marked as readonly
+readonly -f task_pgdocker
+
+```
+
+!!! Note
+    We are using `persist_module_var` and `remove_module_var` here instead of `persist_var` and `remove_var`.
+    The module variations of these function provide a mechanism to save module variables independently of task file context.
+    If we were to use `persist_var`, state would depend on the current working directory.
+
+Now the task will show when we list the global task:
+
+``` {.bash .no-copy}
+
+$ task list -g
+Running list: task...
+... pgdocker ...
+
+$ task help pgdocker
+Running help:pgdocker task...
+Command: task pgdocker
+  Manage postgres containers
+
+Command: task pgdocker run
+  Start a postgres container
+  Optional:
+    --name, -n str
+    --detach, -d
+
+Command: task pgdocker show
+  Show the running postgres containers
+
+Command: task pgdocker stop
+  Stop all the running postgres containers
 
 ```

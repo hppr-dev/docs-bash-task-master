@@ -26,13 +26,24 @@ theme:
 
   name: 'material'
   #custom_dir: 'theme'
-  favicon: 'assets/logo.png'
+  favicon: 'assets/favicon.ico'
   #logo: 'assets/logo.png'
   palette:
-    scheme: 'slate'
+    - scheme: default
+      media: "(prefers-color-scheme: light)"
+      primary: 'blue grey'
+      accent: 'deep purple'
+      toggle:
+        icon: material/lightbulb
+        name: Switch to dark mode
 
-    primary: 'light blue'
-    accent: 'deep purple'
+    - scheme: slate
+      media: "(prefers-color-scheme: dark)"
+      primary: 'indigo'
+      accent: 'deep purple'
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to light mode
     
   font:
     text: 'Roboto'
