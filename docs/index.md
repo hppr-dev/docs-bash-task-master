@@ -1,27 +1,25 @@
 # Introduction
 
 Bash Task Master is a utility to organize and write specialized bash scripts AKA tasks.
-These tasks can either be centrally stored in a global context or stored within a project to create a shared context.
 
 Features:
 
-  - Centralized Management
-    - Manage available tasks from anywhere in your home directory without modifying your PATH
-    - Store variables that persist inside a particular context
+  - Scoped Context
+    - Project specific tasks are stored and loaded based on the current working directory
+    - Modules tasks are available anywhere
 
   - Parse and Validate Input
-    - Reference arguments by name ($ARG_VAR), not by number ($1)
+    - Reference arguments by name (`$ARG_VAR`)
     - Ensure that arguments match an expected format
 
-  - Scoped Context
-    - Project specific tasks are created to only be available within a project directory
-    - Global tasks can be added to be available anywhere in your home directory 
-
   - Isolated Runtime
-    - Task variables do not pollute the user session
+    - Task variables and functions do not pollute the user session
+
+  - Centralized Management
+    - Manage modules, drivers and templates from anywhere
+
 
 Bash Task Master was designed to be flexible and expandable.
-It is a resource to help document and store bash scripts and workflows.
 
 Task files act as documentation for important processes.
 While a simple bash script would serve the same purpose, the aim is to make it easier to co-locate project resources.
@@ -97,7 +95,7 @@ Hello internet, good day to you!
 
 ```
 
-5\. Get help on it!
+5\. Show help!
 
 ``` bash
 
@@ -110,7 +108,7 @@ task help greet          # Get help on the task
 
 ```
 
-6\. Validate it!
+6\. Validate arguments!
 
 ``` bash
 
@@ -119,18 +117,16 @@ Missing required argument: --name
 
 ```
 
-
 # Calling Tasks
 
-Tasks are called using the `task` command.
-This command takes any number of arguments.
+Tasks are called using the `task` command (or the `t` alias).
+The `task` command takes any number of arguments.
 The first argument is always interpreted as the command you would like to run.
 Everything after the command depends on what type of task file you are using.
 
 The default way that commands are parsed is with the [bash task syntax](/drivers#bash-driver).
 This syntax interprets the first argument not starting with `-` after the command as an optional subcommand.
 Everything after the subcommand is required to be an argument.
-
 
 !!! example
     ![Task Call](assets/task-examplepic.png)

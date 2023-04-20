@@ -3,10 +3,21 @@
 Initializing a task file is as simple as changing to the project directory and running:
 
 ``` bash
+mkdir project
+cd project
 task init
 ```
 
-This will create a tasks.sh file in the current directory to hold tasks that are related to the project and bookmark it.
+This will create a tasks.sh file in the current directory and bookmark the directory.
+The tasks.sh file is used to hold tasks that are related to the project.
+Bookmarking a directory saves the location so that you can quickly change directories back to the project:
+
+``` bash
+cd ~
+task goto project
+```
+
+The default name of the bookmark is the name of the directory where `task init` was called (in this case project)
 
 ## Creating a Simple Task
 
@@ -23,7 +34,7 @@ We could write this into a couple tasks:
 
 ``` bash
 
-task_run() {
+task_start() {
   docker run --detach --rm -it -e POSTGRES_PASSWORD=secret --name mydb postgres
 }
 task_stop() {
@@ -36,7 +47,7 @@ Now to run these tasks we can run:
 
 ``` bash
 
-task run
+task start
 task stop
 
 ```
@@ -45,26 +56,26 @@ Or we can use the `t` alias:
 
 ``` bash
 
-t run
+t start
 t stop
 
 ```
 
+Now we have a short, contextual way of running these commands.
+If we ever forget what tasks are defined in the local context, we can run `task list` to list all of the local tasks.
+
 ## Adding Arguments
 
-While shortening of the command is nice, it's not all that bash task master has to offer.
 We can easily add arguments to our newly created tasks.
-
-Let's say we want to be able to specify the name and whether to start the container detached.
-We can add the `arguments_run` function and change `task_run` to the following:
+We just need to implement the `arguments_start` function and change `task_start` to the following:
 
 ``` bash
-arguments_run() {
-  RUN_DESCRIPTION="Run the postgres database"
-  RUN_OPTIONS="detach:d:bool name:n:str"
+arguments_start() {
+  START_DESCRIPTION="Run the postgres database"
+  START_OPTIONS="detach:d:bool name:n:str"
 }
 
-task_run() {
+task_start() {
   if [[ -z "$ARG_NAME" ]]
   then
     ARG_NAME=mydb
@@ -78,29 +89,35 @@ task_run() {
 
 ```
 
-Then we can run the following:
+The `START_OPTIONS` variable in the arguments defines what optional arguments the task accepts.
+If we had instead named this variable as `START_REQUIREMENTS` these areguments would be required.
+Task execution does not start if a required argument is not supplied.
+The `START_DESCRIPTION` variable is used as a description of the task when `task help start` is called.
+Including a description for tasks is a good idea, as it is a simple way to document what a task is supposed to do.
+
+With these arguments we can run the `start` task with the following arguments:
 
 ``` {.bash .no-copy}
 
 # Equivalent to: docker run --detach --rm -it -e POSTGRES_PASSWORD=secret --name mydb postgres
-$ task run --detach
+$ task start --detach
 
 # Equivalent to: docker run --rm -it -e POSTGRES_PASSWORD=secret --name mydb postgres
-$ task run
+$ task start
 
 # Equivalent to: docker run --rm -it -e POSTGRES_PASSWORD=secret --name anotherdb postgres
-$ task run -n anotherdb
+$ task start -n anotherdb
 
 ```
 
 ## Saving State 
 
-Now that we can start any number of containers, we need a way to keep track of and stop all of the containers we have started
+Now that we have tasks to start any number of containers, we need a way to keep track of and stop all of the containers we have started
 
-First we need to save the names of the containers that we started in `task_run`:
+First we need to save the names of the containers that we started in `task_start`:
 
 ``` bash
-task_run() {
+task_start() {
   if [[ -z "$ARG_NAME" ]]
   then
     ARG_NAME=mydb
@@ -122,7 +139,7 @@ task_show() {
 }
 ```
 
-Finally we can update our stop task to stop all of the containers:
+Finally we can update the stop task to stop all of the containers:
 
 ``` bash
 task_stop() {
@@ -136,14 +153,14 @@ Now to test we can run the following:
 ``` {.bash .no-copy}
 
 # Start a few containers
-$ t run -d
-Running run: task...
+$ t start -d
+Running start: task...
 c164e181e...
-$ t run -d -n other
-Running run: task...
+$ t start -d -n other
+Running start: task...
 34ef64e18...
-$ t run -d -n another
-Running run: task...
+$ t start -d -n another
+Running start: task...
 164ae18fc...
 
 # Show the running containers
@@ -186,7 +203,7 @@ We can list our tasks and our templates:
 ``` {.bash .no-copy}
 $ task list
 Running list: task...
-run	      show	    stop
+start	      show	    stop
 
 $ task template list
 Running template:list task...
@@ -208,10 +225,10 @@ In `$TASK_MASTER_HOME/modules/pgdocker-module.sh` we can write:
 
 arguments_pgdocker() {
   PGDOCKER_DESCRIPTION="Manage postgres containers"
-  SUBCOMMANDS="run|show|stop"
+  SUBCOMMANDS="start|show|stop"
 
-  RUN_DESCRIPTION="Start a postgres container"
-  RUN_OPTIONS="name:n:str detach:d:bool"
+  START_DESCRIPTION="Start a postgres container"
+  START_OPTIONS="name:n:str detach:d:bool"
 
   SHOW_DESCRIPTION="Show the running postgres containers"
 
@@ -219,7 +236,7 @@ arguments_pgdocker() {
 }
 
 task_pgdocker() {
-  if [[ "$TASK_SUBCOMMAND" == "run" ]]
+  if [[ "$TASK_SUBCOMMAND" == "start" ]]
   then
     if [[ -z "$ARG_NAME" ]]
     then
@@ -268,7 +285,7 @@ Running help:pgdocker task...
 Command: task pgdocker
   Manage postgres containers
 
-Command: task pgdocker run
+Command: task pgdocker start
   Start a postgres container
   Optional:
     --name, -n str
