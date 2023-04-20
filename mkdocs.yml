@@ -26,8 +26,7 @@ theme:
 
   name: 'material'
   #custom_dir: 'theme'
-  favicon: 'assets/favicon.ico'
-  #logo: 'assets/logo.png'
+  favicon: 'assets/favicon.svg'
   palette:
     - scheme: default
       media: "(prefers-color-scheme: light)"
@@ -87,8 +86,8 @@ theme:
   - content.code.copy
   
   icon:
-    logo: 'material/library'
-    repo: 'material/library'
+    logo: 'material/format-list-group'
+    repo: 'material/git'
   
 #extra_css:
 #  - stylesheets/extra.css
