@@ -1,13 +1,12 @@
 site_name: Bash Task Master
 site_description: 'Bash Task Master Documentation'
-site_author: 'hppr.dev'
+site_author: 'Stephen Walker'
 site_url: 'https://bash-task-master.readthedocs.io'
 
-#copyright: |
-#  &copy; Author
+copyright: |
+  &copy; hppr.dev
 
 docs_dir: docs/
-
 
 repo_name: hppr-dev/bash-task-master
 repo_url: https://github.com/hppr-dev/bash-task-master
@@ -15,6 +14,7 @@ edit_uri: https://github.com/hppr-dev/docs-bash-task-master/blob/master/docs
 
 nav:
   - Introduction: index.md
+  - Walkthrough: walkthrough.md
   - Built In Tasks: built_in_tasks.md
   - Task Files: task_files.md
   - State: state.md
@@ -26,12 +26,23 @@ theme:
 
   name: 'material'
   #custom_dir: 'theme'
-  #favicon: 'assets/images/favicon.png'
+  favicon: 'assets/favicon.svg'
   palette:
-    scheme: 'slate'
+    - scheme: default
+      media: "(prefers-color-scheme: light)"
+      primary: 'blue grey'
+      accent: 'deep purple'
+      toggle:
+        icon: material/lightbulb
+        name: Switch to dark mode
 
-    primary: 'light blue'
-    accent: 'deep purple'
+    - scheme: slate
+      media: "(prefers-color-scheme: dark)"
+      primary: 'indigo'
+      accent: 'deep purple'
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to light mode
     
   font:
     text: 'Roboto'
@@ -57,8 +68,8 @@ theme:
   #- navigation.indexes     # Attach pages directly to Sections. Incompatible with "toc.integrate"
   #- navigation.sections    # Render top sections as groups.
   - navigation.tabs         # Render top sections as tabs at the top.
-  #- navigation.tabs.sticky # Tabs won't disappear when scrolling down. Requires "navigation.tabs".
-  #- navigation.top         # Adds a "Back to top" that is shown when scrolling up.
+  - navigation.tabs.sticky # Tabs won't disappear when scrolling down. Requires "navigation.tabs".
+  - navigation.top         # Adds a "Back to top" that is shown when scrolling up.
   #- navigation.tracking    # Updates the url with highlighted section anchor.
   
   # Search
@@ -75,10 +86,12 @@ theme:
   - content.code.copy
   
   icon:
-    logo: 'material/library'
-    repo: 'material/library'
+    logo: 'material/format-list-group'
+    repo: 'material/git'
   
 #extra_css:
+#  - stylesheets/extra.css
+
 #extra_javascript:
 
 extra:

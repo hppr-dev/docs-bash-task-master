@@ -52,19 +52,20 @@ task list --local
 ## Edit
 
 Edit the current local task file.
-Opens the editor specified in the `DEFAULT_EDITOR` variable in `$TASK_MASTER_HOME/config.sh`.
+Opens the editor specified in the `DEFAULT_EDITOR` variable in `$TASK_MASTER_HOME/config.env`.
 After exiting the editor bash-task-master will check that the tasks.sh file is valid bash.
 If the file is not valid it will give you the option to either open it back up or revert the changes.
 
 ``` bash
 
+# Edit the current tasks file with the DEFAULT_EDITOR
 task edit
 
 ```
 
 ## Bookmark
 
-Bookmark locations.
+Bookmark directories.
 
 ``` bash
 
@@ -88,13 +89,12 @@ task bookmark rm --name mybookmark
 
 ## Goto
 
-Change directories to previously bookmarked locations.
-
-Goto a bookmark named location:
+Change directories to previously bookmarked directories.
 
 ``` bash
 
-task goto location
+# Goto the bookmarked proj directory
+task goto proj
 
 ```
 
@@ -129,13 +129,13 @@ task template list
 
 ## Module
 
-Manage local modules.
+Manage modules.
 
 
 ``` bash
 
 # Enable mymodule
-# Searches TASK_REPOS for the module if it not found locally.
+# Searches TASK_REPOS from $TASK_MASTER_HOME/config.env for the module if it not found locally.
 task module enable --name mymodule
 
 # Disable mymodule
@@ -152,6 +152,10 @@ task module list --enabled
 
 # List all diabled modules
 task module list --disabled
+
+# Remove all disabled modules
+task module clean
+
 ```
 
 ## Driver
@@ -161,7 +165,7 @@ Manage task drivers
 ``` bash
 
 # Enable mydriver
-# Searches TASK_REPOS for the driver if it is not found locally
+# Searches TASK_REPOS from $TASK_MASTER_HOME/config.env for the driver if it is not found locally
 task driver enable --name mydriver
 
 # Disable mydriver
@@ -175,36 +179,46 @@ task driver list --remote
 
 ```
 
-## Global
+## State
 
-Global debug information.
-Manage global variables and state.
-
+Interact with stored state information
 
 ``` bash
 
 # Show all current variables
-task global debug
+task state show
 
-# Show current variables for the build command:
-task global debug --command build
+# Set a variable for the current context.
+task state set --key myvar --value 10
 
-# Set a variable for a command.
-# For example, to set myvar to 10 for the build command:
-task global set --key myvar --value 10 --command build
-
-# Remove a variable for a command.
-# For example, to unset myvar for the build command:
-task global unset --key myvar --command build
-
+# Remove a variable for the current context.
+task state unset --key myvar
 
 # Edit the variables for a command.
-# Uses the `DEFAULT_EDITOR` setting in `$TASK_MASTER_HOME/config.sh` as the editor.
-# For example, to edit the settings for the clean command:
-task global edit --command clean
+# Uses the `DEFAULT_EDITOR` setting in $TASK_MASTER_HOME/config.env as the editor.
+task state edit
 
+# Remove all empty state files and bookmarks that refer to missing directories.
+task state clean
 
-# Clean up empty locations and stale location files.
-# This will remove any state files with no values in them and remove any bookmarks that refer to non existant locations.
-task global clean
+```
+
+## Global
+
+Global Utilities.
+
+``` bash
+
+# Update to the most recent release
+task global update
+
+# Update to the dev version (irreversible)
+task global update --dev
+
+# Update to version 1.0
+task global update --version 1.0
+
+# Show version information
+task global version
+
 ```

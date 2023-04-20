@@ -57,10 +57,8 @@ Therefore, tasks can not have side effects on the current environment, other tha
 
 For more on how to change the current environment refer to the [state function documentation](/state).
 
-Bash Task Master defines 3 functions in the user session: `task` `_TaskTabCompletion` and `_tmverbose_echo`.
-It also defines/relies on 4 environment variables `TASK_MASTER_HOME`, `TASK_REPOS`, `DEFAULT_EDITOR` and `DEFAULT_TASK_DRIVER`.
-
-The `TASK_MASTER_HOME` variable should be set in the .bashrc after installation and the other values are set in the `$TASK_MASTER_HOME/config.sh` file.
+Bash Task Master defines 3 functions in the user session: `task` `_TaskTabCompletion` and `_tmverbose_echo` and 1 variable `TASK_MASTER_HOME`.
+These are set up to be loaded in the .bashrc during installation.
 
 Any other additions to the user environment have to be initiated by the user.
 
@@ -80,9 +78,9 @@ The following is a summary of the variables that are set in the task function, a
 | RUNNING_DIR    | The directory that task was run from | /home/btm/project_one/utils |
 | DRIVER_DIR     | The driver directory | $TASK_MASTER_HOME/lib/drivers |
 | TASK_MASTER_HOME | The home directory of bash task master | /home/btm/.task-master |
-| TASK_REPOS | A space separated list of repo inventory files to pull modules or drivers from | file:///home/btm/repo/inventory |
-| DEFAULT_EDITOR | The default editor to open when modifying files | vim |
-| DEFAULT_TASK_DRIVER | The default task driver to use when initializing task files | bash |
+| TASK_REPOS | A space separated list of repo inventory files to pull modules or drivers from. Set in `$TASK_MASTER_HOME/config.env`. | file:///home/btm/repo/inventory |
+| DEFAULT_EDITOR | The default editor to open when modifying files. Set in `$TASK_MASTER_HOME/config.env`. | vi |
+| DEFAULT_TASK_DRIVER | The default task driver to use when initializing task files. Set in `$TASK_MASTER_HOME/config.env`. | bash |
 
 
 For the sake of completeness, the following variables are also accessable, but should rarely be needed directly:
@@ -90,9 +88,7 @@ For the sake of completeness, the following variables are also accessable, but s
 | Variable Name  | Description | Example Value |
 |----------------|-------------|---------------|
 | LOCATION_FILE | File that stores all of the stored locations. Don't mess with this file unless you are confident in fixing it. | /home/btm/.task-master/state/locations.vars |
-| STATE_DIR      | Directory where state is stored for tasks. `$TASK_MASTER_HOME/state` in the global scope. | /home/btm/.task-master/state/project_one/ |
 | STATE_FILE     | File that stores the state for a given command | /home/btm/.task-master/state/project_one/build.vars |
-| DEFAULT_EDITOR | The default editor to use when editing is called for. | vim |
 | TASK_DRIVER_DICT | The associative array mapping task driver names to task driver files | bash=bash_driver.sh |
 | TASK_FILE_NAME_DICT | The associatvie array mapping task files to task drivers | tasks.sh=bash |
 | TASK_DRIVER | The name of the running task driver | bash |
@@ -106,7 +102,7 @@ For the sake of completeness, the following variables are also accessable, but s
 | LOCAL_TASKS_REG | A regex list of local tasks | `build|run|kill` |
 | GLOBAL_TASKS_REG | A regex list of global tasks | `list|help|global|driver|module` |
 | GLOBAL_VERBOSE | Set to true to log _tmverbose_echo calls to stdout | 1 |
-| GLOBAL_TASK_FILE | The file to load global tasks | $TASK_MASTER_HOME/load-global.sh |
+| GLOBAL_TASK_FILE | The file to load global tasks | $TASK_MASTER_HOME/lib/global-tasks.sh |
 
 ### Task Variable Conventions
 
@@ -127,9 +123,3 @@ Task file templates may be used when [initializing](/built_in_tasks#init) a new 
 By default, the template with the same name as the driver is used.
 Manage templates by using the built in [template](/built_in_tasks#template) command.
 To edit or create a template run `task template edit -n my_tmpl`
-
-!!! note
-    A default bash driver template is included when installing bash task master.
-    This template is meant to serve as a quick reference to start a custom task file.
-    This template may be managed using the [template](/built_in_tasks#template) task.
-
