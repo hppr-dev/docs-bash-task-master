@@ -20,7 +20,16 @@ Features:
   - Isolated Runtime
     - Task variables do not pollute the user session
 
-Bash Task Master was designed to be flexibile and expandible.
+Bash Task Master was designed to be flexible and expandable.
+It is a resource to help document and store bash scripts and workflows.
+
+Task files act as documentation for important processes.
+While a simple bash script would serve the same purpose, the aim is to make it easier to co-locate project resources.
+There are also quality of life aspects like argument parsing and state storage.
+
+For example, let's say we wanted to lint, test, and run every project that we worked on.
+Without bash task master, we would need to remember the command and arguments for each tool that performs each individual command.
+With bash task master, it's as easy as running `task lint`, `task test`, and `task run` in a project directory.
 
 ## Installation
 

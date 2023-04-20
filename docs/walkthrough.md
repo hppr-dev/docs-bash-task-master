@@ -1,17 +1,3 @@
-## Introduction
-
-Bash task master was made to be a resource to help document and store bash scripts and workflows.
-From the beginning bash task master was meant as a general purpose tool, not focused on a single aspect of development or process.
-It was not meant to replace tools like `make`, `gradle` or `npm`, but augment them and provide a way to standardize and document project interfaces.
-
-For example, let's say we wanted to lint, test, and run every project that we worked on.
-Without bash task master, we would need to remember the command and arguments for each tool that performs each individual command.
-With bash task master, it's as easy as running `task lint`, `task test`, and `task run` in a project directory.
-
-Task files act as documentation for important processes.
-While a simple bash script would serve the same purpose, the aim is to make it easier to co-locate project resources.
-There are also quality of life aspects like argument parsing and state storage.
-
 ## Initializing a Task File
 
 Initializing a task file is as simple as changing to the project directory and running:
