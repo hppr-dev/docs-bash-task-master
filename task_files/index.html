@@ -1,0 +1,878 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Bash Task Master Documentation">
+      
+      
+        <meta name="author" content="Stephen Walker">
+      
+      
+        <link rel="canonical" href="https://bash-task-master.readthedocs.io/task_files/">
+      
+      
+        <link rel="prev" href="../built_in_tasks/">
+      
+      
+        <link rel="next" href="../state/">
+      
+      <link rel="icon" href="../assets/favicon.svg">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.5">
+    
+    
+      
+        <title>Task Files - Bash Task Master</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7a7fce14.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="deep-purple">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#task-files" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Bash Task Master" class="md-header__button md-logo" aria-label="Bash Task Master" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 5v14h2v2H3V3h4v2H5m15 2H7v2h13V7m0 4H7v2h13v-2m0 4H7v2h13v-2Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bash Task Master
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Task Files
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hppr-dev/bash-task-master" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2.6 10.59 8.38 4.8l1.69 1.7c-.24.85.15 1.78.93 2.23v5.54c-.6.34-1 .99-1 1.73a2 2 0 0 0 2 2 2 2 0 0 0 2-2c0-.74-.4-1.39-1-1.73V9.41l2.07 2.09c-.07.15-.07.32-.07.5a2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2c-.18 0-.35 0-.5.07L13.93 7.5a1.98 1.98 0 0 0-1.15-2.34c-.43-.16-.88-.2-1.28-.09L9.8 3.38l.79-.78c.78-.79 2.04-.79 2.82 0l7.99 7.99c.79.78.79 2.04 0 2.82l-7.99 7.99c-.78.79-2.04.79-2.82 0L2.6 13.41c-.79-.78-.79-2.04 0-2.82Z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hppr-dev/bash-task-master
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      Introduction
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../walkthrough/" class="md-tabs__link">
+      Walkthrough
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../built_in_tasks/" class="md-tabs__link">
+      Built In Tasks
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="./" class="md-tabs__link md-tabs__link--active">
+      Task Files
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../state/" class="md-tabs__link">
+      State
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../modules/" class="md-tabs__link">
+      Modules
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../drivers/" class="md-tabs__link">
+      Drivers
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../repositories/" class="md-tabs__link">
+      Repositories
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Bash Task Master" class="md-nav__button md-logo" aria-label="Bash Task Master" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 5v14h2v2H3V3h4v2H5m15 2H7v2h13V7m0 4H7v2h13v-2m0 4H7v2h13v-2Z"/></svg>
+
+    </a>
+    Bash Task Master
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hppr-dev/bash-task-master" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2.6 10.59 8.38 4.8l1.69 1.7c-.24.85.15 1.78.93 2.23v5.54c-.6.34-1 .99-1 1.73a2 2 0 0 0 2 2 2 2 0 0 0 2-2c0-.74-.4-1.39-1-1.73V9.41l2.07 2.09c-.07.15-.07.32-.07.5a2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2c-.18 0-.35 0-.5.07L13.93 7.5a1.98 1.98 0 0 0-1.15-2.34c-.43-.16-.88-.2-1.28-.09L9.8 3.38l.79-.78c.78-.79 2.04-.79 2.82 0l7.99 7.99c.79.78.79 2.04 0 2.82l-7.99 7.99c-.78.79-2.04.79-2.82 0L2.6 13.41c-.79-.78-.79-2.04 0-2.82Z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hppr-dev/bash-task-master
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../walkthrough/" class="md-nav__link">
+        Walkthrough
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../built_in_tasks/" class="md-nav__link">
+        Built In Tasks
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Task Files
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Task Files
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#context-scoping" class="md-nav__link">
+    Context Scoping
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-isolation" class="md-nav__link">
+    Environment Isolation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-variables" class="md-nav__link">
+    Task Variables
+  </a>
+  
+    <nav class="md-nav" aria-label="Task Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task-variable-conventions" class="md-nav__link">
+    Task Variable Conventions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-file-templates" class="md-nav__link">
+    Task File Templates
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../state/" class="md-nav__link">
+        State
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/" class="md-nav__link">
+        Modules
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../drivers/" class="md-nav__link">
+        Drivers
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../repositories/" class="md-nav__link">
+        Repositories
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="task-files">Task Files<a class="headerlink" href="#task-files" title="Permanent link">&para;</a></h1>
+<p>Task files are the meat and potatoes of Bash Task Master.
+They hold all of the important procedures for a particular context.</p>
+<p>By default, Bash Task Master supports the bash task syntax for task files.
+See the <a href="/drivers#bash-driver">bash driver documentation</a> for an indepth overview of the bash task syntax.</p>
+<h2 id="context-scoping">Context Scoping<a class="headerlink" href="#context-scoping" title="Permanent link">&para;</a></h2>
+<p>There are two main scopes that a task can run as:</p>
+<ul>
+<li>Global<ul>
+<li>Tasks that can be run anywhere<ul>
+<li>Builtin tasks</li>
+<li>Installed Modules</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Local<ul>
+<li>Tasks from the local task file</li>
+</ul>
+</li>
+</ul>
+<p>The first thing that Bash Task Master does is look for a task file.
+It starts at the current directory searches towards the root.
+The search ends when either a task file is found, the current home directory is searched or the search reachs the root of the filesystem ("/").
+If a task file is found, it loads the tasks inside of it.
+Otherwise, only the builtin and module tasks are loaded.</p>
+<p>For example, take the following file structure:</p>
+<div class="highlight"><pre><span></span><code>/home/btm/
+├── .task-master
+├── notes             ─┐
+│   ├── tasks.sh       │ notes scope
+│   └── docs           │
+│       └── Linux.txt ─┘
+├── project_one          ─┐
+│   ├── tasks.sh          │ project_one scope
+│   └── utils             │
+│       └── some_file.py ─┘
+└── project_two            ┐ global scope (no tasks.sh file)
+    └── some_otherfile.py  ┘
+</code></pre></div>
+<p>Running <code>task</code> in the following contexts:</p>
+<table>
+<thead>
+<tr>
+<th>Current directory</th>
+<th>Scope</th>
+<th>Loaded Tasks File</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/home/btm/notes</td>
+<td>Local</td>
+<td>/home/btm/notes/tasks.sh</td>
+</tr>
+<tr>
+<td>/home/btm/project_two</td>
+<td>Global</td>
+<td>Global</td>
+</tr>
+<tr>
+<td>/home/btm/project_one/utils</td>
+<td>Local</td>
+<td>/home/btm/project_one/tasks.sh</td>
+</tr>
+</tbody>
+</table>
+<h2 id="environment-isolation">Environment Isolation<a class="headerlink" href="#environment-isolation" title="Permanent link">&para;</a></h2>
+<p>No task that is defined in the task file is ever loaded permanently into the user's running session.
+The task function loads the task file in a subshell, isolating it from the current environment.
+Therefore, tasks can not have side effects on the current environment, other than those explicitly made by the user.</p>
+<p>For more on how to change the current environment refer to the <a href="/state">state function documentation</a>.</p>
+<p>Bash Task Master defines 3 functions in the user session: <code>task</code> <code>_TaskTabCompletion</code> and <code>_tmverbose_echo</code> and 1 variable <code>TASK_MASTER_HOME</code>.
+These are set up to be loaded in the .bashrc during installation.</p>
+<p>Any other additions to the user environment have to be initiated by the user.</p>
+<h2 id="task-variables">Task Variables<a class="headerlink" href="#task-variables" title="Permanent link">&para;</a></h2>
+<p>Each task function is spawned inside of a subshell by the task function.
+This means that the child process in which tasks are being run have access to the environment variables that have been set by the task function.</p>
+<p>The following is a summary of the variables that are set in the task function, and are therefore available to use inside of tasks:</p>
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Description</th>
+<th>Example Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TASK_COMMAND</td>
+<td>The current running command</td>
+<td>build</td>
+</tr>
+<tr>
+<td>TASK_SUBCOMMAND</td>
+<td>The current running subcommand (only applies to the bash driver)</td>
+<td>frontend</td>
+</tr>
+<tr>
+<td>TASK_DIR</td>
+<td>Directory where the task file was found. <code>$TASK_MASTER_HOME</code> in the global scope.</td>
+<td>/home/btm/notes</td>
+</tr>
+<tr>
+<td>TASK_FILE</td>
+<td>Tasks file that was loaded.</td>
+<td>/home/btm/notes/tasks.sh</td>
+</tr>
+<tr>
+<td>RUNNING_DIR</td>
+<td>The directory that task was run from</td>
+<td>/home/btm/project_one/utils</td>
+</tr>
+<tr>
+<td>DRIVER_DIR</td>
+<td>The driver directory</td>
+<td>$TASK_MASTER_HOME/lib/drivers</td>
+</tr>
+<tr>
+<td>TASK_MASTER_HOME</td>
+<td>The home directory of bash task master</td>
+<td>/home/btm/.task-master</td>
+</tr>
+<tr>
+<td>TASK_REPOS</td>
+<td>A space separated list of repo inventory files to pull modules or drivers from. Set in <code>$TASK_MASTER_HOME/config.env</code>.</td>
+<td>file:///home/btm/repo/inventory</td>
+</tr>
+<tr>
+<td>DEFAULT_EDITOR</td>
+<td>The default editor to open when modifying files. Set in <code>$TASK_MASTER_HOME/config.env</code>.</td>
+<td>vi</td>
+</tr>
+<tr>
+<td>DEFAULT_TASK_DRIVER</td>
+<td>The default task driver to use when initializing task files. Set in <code>$TASK_MASTER_HOME/config.env</code>.</td>
+<td>bash</td>
+</tr>
+</tbody>
+</table>
+<p>For the sake of completeness, the following variables are also accessable, but should rarely be needed directly:</p>
+<table>
+<thead>
+<tr>
+<th>Variable Name</th>
+<th>Description</th>
+<th>Example Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LOCATION_FILE</td>
+<td>File that stores all of the stored locations. Don't mess with this file unless you are confident in fixing it.</td>
+<td>/home/btm/.task-master/state/locations.vars</td>
+</tr>
+<tr>
+<td>STATE_FILE</td>
+<td>File that stores the state for a given command</td>
+<td>/home/btm/.task-master/state/project_one/build.vars</td>
+</tr>
+<tr>
+<td>TASK_DRIVER_DICT</td>
+<td>The associative array mapping task driver names to task driver files</td>
+<td>bash=bash_driver.sh</td>
+</tr>
+<tr>
+<td>TASK_FILE_NAME_DICT</td>
+<td>The associatvie array mapping task files to task drivers</td>
+<td>tasks.sh=bash</td>
+</tr>
+<tr>
+<td>TASK_DRIVER</td>
+<td>The name of the running task driver</td>
+<td>bash</td>
+</tr>
+<tr>
+<td>TASK_FILE_DRIVER</td>
+<td>The name of the driver for the current task file</td>
+<td>bash</td>
+</tr>
+<tr>
+<td>TASK_FILE_NAME</td>
+<td>The name of the current task file</td>
+<td>tasks.sh</td>
+</tr>
+<tr>
+<td>TASKS_FILE_FOUND</td>
+<td>Denotes whether a task file was found in the current scope. (useful for modules)</td>
+<td>T</td>
+</tr>
+<tr>
+<td>DRIVER_EXECUTE_TASK</td>
+<td>Driver specific execution function</td>
+<td>bash_execute</td>
+</tr>
+<tr>
+<td>DRIVER_HELP_TASK</td>
+<td>Driver specific help function</td>
+<td>bash_help</td>
+</tr>
+<tr>
+<td>DRIVER_LIST_TASK</td>
+<td>Driver specific list function</td>
+<td>bash_list</td>
+</tr>
+<tr>
+<td>DRIVER_VALIDATE_TASK_FILE</td>
+<td>Driver function to validate task file</td>
+<td>bash_validate_file</td>
+</tr>
+<tr>
+<td>LOCAL_TASKS_REG</td>
+<td>A regex list of local tasks</td>
+<td><code>build|run|kill</code></td>
+</tr>
+<tr>
+<td>GLOBAL_TASKS_REG</td>
+<td>A regex list of global tasks</td>
+<td><code>list|help|global|driver|module</code></td>
+</tr>
+<tr>
+<td>GLOBAL_VERBOSE</td>
+<td>Set to true to log _tmverbose_echo calls to stdout</td>
+<td>1</td>
+</tr>
+<tr>
+<td>GLOBAL_TASK_FILE</td>
+<td>The file to load global tasks</td>
+<td>$TASK_MASTER_HOME/lib/global-tasks.sh</td>
+</tr>
+</tbody>
+</table>
+<h3 id="task-variable-conventions">Task Variable Conventions<a class="headerlink" href="#task-variable-conventions" title="Permanent link">&para;</a></h3>
+<p>The following conventions are followed when deciding a variable name:</p>
+<ul>
+<li>All variables available to tasks are uppercase</li>
+<li>Variables that reference files end in <code>_FILE</code></li>
+<li>Variables that reference directory end in <code>_DIR</code></li>
+<li>Variables that are space seperated lists end in <code>S</code></li>
+<li>Variables that are regexes end in <code>_REG</code></li>
+<li>Multi-word variables are always seperated by underscores, i.e. <code>FILE_NAME</code> vs <code>FILENAME</code></li>
+<li>Singular words are preferred to plural, i.e. <code>TASK_FILE</code> vs <code>TASKS_FILE</code></li>
+</ul>
+<h2 id="task-file-templates">Task File Templates<a class="headerlink" href="#task-file-templates" title="Permanent link">&para;</a></h2>
+<p>Task file templates may be used when <a href="/built_in_tasks#init">initializing</a> a new task file.
+By default, the template with the same name as the driver is used.
+Manage templates by using the built in <a href="/built_in_tasks#template">template</a> command.
+To edit or create a template run <code>task template edit -n my_tmpl</code></p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; hppr.dev
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/hppr-dev/bash-task-master" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.expand", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "toc.integrate", "content.code.copy"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.407015b8.min.js"></script>
+      
+    
+  </body>
+</html>

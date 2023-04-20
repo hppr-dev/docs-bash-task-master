@@ -1,0 +1,822 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Bash Task Master Documentation">
+      
+      
+        <meta name="author" content="Stephen Walker">
+      
+      
+        <link rel="canonical" href="https://bash-task-master.readthedocs.io/built_in_tasks/">
+      
+      
+        <link rel="prev" href="../walkthrough/">
+      
+      
+        <link rel="next" href="../task_files/">
+      
+      <link rel="icon" href="../assets/favicon.svg">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.1.5">
+    
+    
+      
+        <title>Built In Tasks - Bash Task Master</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7a7fce14.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="deep-purple">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#builtin-tasks" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Bash Task Master" class="md-header__button md-logo" aria-label="Bash Task Master" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 5v14h2v2H3V3h4v2H5m15 2H7v2h13V7m0 4H7v2h13v-2m0 4H7v2h13v-2Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bash Task Master
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Built In Tasks
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hppr-dev/bash-task-master" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2.6 10.59 8.38 4.8l1.69 1.7c-.24.85.15 1.78.93 2.23v5.54c-.6.34-1 .99-1 1.73a2 2 0 0 0 2 2 2 2 0 0 0 2-2c0-.74-.4-1.39-1-1.73V9.41l2.07 2.09c-.07.15-.07.32-.07.5a2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2c-.18 0-.35 0-.5.07L13.93 7.5a1.98 1.98 0 0 0-1.15-2.34c-.43-.16-.88-.2-1.28-.09L9.8 3.38l.79-.78c.78-.79 2.04-.79 2.82 0l7.99 7.99c.79.78.79 2.04 0 2.82l-7.99 7.99c-.78.79-2.04.79-2.82 0L2.6 13.41c-.79-.78-.79-2.04 0-2.82Z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hppr-dev/bash-task-master
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      Introduction
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../walkthrough/" class="md-tabs__link">
+      Walkthrough
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="./" class="md-tabs__link md-tabs__link--active">
+      Built In Tasks
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../task_files/" class="md-tabs__link">
+      Task Files
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../state/" class="md-tabs__link">
+      State
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../modules/" class="md-tabs__link">
+      Modules
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../drivers/" class="md-tabs__link">
+      Drivers
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../repositories/" class="md-tabs__link">
+      Repositories
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Bash Task Master" class="md-nav__button md-logo" aria-label="Bash Task Master" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 5v14h2v2H3V3h4v2H5m15 2H7v2h13V7m0 4H7v2h13v-2m0 4H7v2h13v-2Z"/></svg>
+
+    </a>
+    Bash Task Master
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hppr-dev/bash-task-master" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2.6 10.59 8.38 4.8l1.69 1.7c-.24.85.15 1.78.93 2.23v5.54c-.6.34-1 .99-1 1.73a2 2 0 0 0 2 2 2 2 0 0 0 2-2c0-.74-.4-1.39-1-1.73V9.41l2.07 2.09c-.07.15-.07.32-.07.5a2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2c-.18 0-.35 0-.5.07L13.93 7.5a1.98 1.98 0 0 0-1.15-2.34c-.43-.16-.88-.2-1.28-.09L9.8 3.38l.79-.78c.78-.79 2.04-.79 2.82 0l7.99 7.99c.79.78.79 2.04 0 2.82l-7.99 7.99c-.78.79-2.04.79-2.82 0L2.6 13.41c-.79-.78-.79-2.04 0-2.82Z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    hppr-dev/bash-task-master
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../walkthrough/" class="md-nav__link">
+        Walkthrough
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Built In Tasks
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Built In Tasks
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#init" class="md-nav__link">
+    Init
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#list" class="md-nav__link">
+    List
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edit" class="md-nav__link">
+    Edit
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bookmark" class="md-nav__link">
+    Bookmark
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#goto" class="md-nav__link">
+    Goto
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#help" class="md-nav__link">
+    Help
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#template" class="md-nav__link">
+    Template
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module" class="md-nav__link">
+    Module
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#driver" class="md-nav__link">
+    Driver
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    State
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global" class="md-nav__link">
+    Global
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../task_files/" class="md-nav__link">
+        Task Files
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../state/" class="md-nav__link">
+        State
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/" class="md-nav__link">
+        Modules
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../drivers/" class="md-nav__link">
+        Drivers
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../repositories/" class="md-nav__link">
+        Repositories
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="builtin-tasks">Builtin Tasks<a class="headerlink" href="#builtin-tasks" title="Permanent link">&para;</a></h1>
+<p>The following is a summary of all built in tasks that are shipped with bash task master.</p>
+<p>In the examples all arguments are given in their long form, but short arguments are also accepted.
+The short form arguments are standardized as the first letter of the long form.
+For example, the short form of <code>--dir</code> would be <code>-d</code>.</p>
+<p>This information can also be easily accessed by running <code>task help COMMAND_NAME</code>.</p>
+<h2 id="init">Init<a class="headerlink" href="#init" title="Permanent link">&para;</a></h2>
+<p>Initialize a local task file.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a .tasks.sh file in the current directory</span>
+<span class="c1"># Uses the default bash template</span>
+<span class="c1"># Adds a bookmark with the directory name</span>
+task<span class="w"> </span>init
+
+<span class="c1"># Create a tasks.sh file in target directory and names it project</span>
+task<span class="w"> </span>init<span class="w"> </span>--dir<span class="w"> </span>target<span class="w"> </span>--name<span class="w"> </span>project
+
+<span class="c1"># Create a .tasks.sh file from a given template</span>
+task<span class="w"> </span>init<span class="w"> </span>--template<span class="w"> </span>custom
+
+<span class="c1"># Create default task file for mydriver</span>
+<span class="c1"># If a template does not exist, create an empty task file that uses the naming convention of mydriver</span>
+<span class="c1"># NOTE: -D is the short argument for --driver</span>
+task<span class="w"> </span>init<span class="w"> </span>--driver<span class="w"> </span>mydriver
+</code></pre></div>
+<h2 id="list">List<a class="headerlink" href="#list" title="Permanent link">&para;</a></h2>
+<p>List available tasks.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># List all tasks available</span>
+task<span class="w"> </span>list
+
+<span class="c1"># List all global tasks</span>
+task<span class="w"> </span>list<span class="w"> </span>--global
+
+<span class="c1"># List all local tasks</span>
+task<span class="w"> </span>list<span class="w"> </span>--local
+</code></pre></div>
+<h2 id="edit">Edit<a class="headerlink" href="#edit" title="Permanent link">&para;</a></h2>
+<p>Edit the current local task file.
+Opens the editor specified in the <code>DEFAULT_EDITOR</code> variable in <code>$TASK_MASTER_HOME/config.env</code>.
+After exiting the editor bash-task-master will check that the tasks.sh file is valid bash.
+If the file is not valid it will give you the option to either open it back up or revert the changes.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Edit the current tasks file with the DEFAULT_EDITOR</span>
+task<span class="w"> </span>edit
+</code></pre></div>
+<h2 id="bookmark">Bookmark<a class="headerlink" href="#bookmark" title="Permanent link">&para;</a></h2>
+<p>Bookmark directories.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Bookmark the current directory</span>
+<span class="c1"># Uses the current directory as it&#39;s name</span>
+task<span class="w"> </span>bookmark
+
+<span class="c1"># Bookmark the current directory as loc</span>
+task<span class="w"> </span>bookmark<span class="w"> </span>--name<span class="w"> </span>loc
+
+<span class="c1"># Create a bookmark to some/other/dir named mydir</span>
+task<span class="w"> </span>bookmark<span class="w"> </span>--dir<span class="w"> </span>some/other/dir<span class="w"> </span>--name<span class="w"> </span>mydir
+
+<span class="c1"># List bookmarks</span>
+task<span class="w"> </span>bookmark<span class="w"> </span>list
+
+<span class="c1"># Remove a bookmark</span>
+task<span class="w"> </span>bookmark<span class="w"> </span>rm<span class="w"> </span>--name<span class="w"> </span>mybookmark
+</code></pre></div>
+<h2 id="goto">Goto<a class="headerlink" href="#goto" title="Permanent link">&para;</a></h2>
+<p>Change directories to previously bookmarked directories.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Goto the bookmarked proj directory</span>
+task<span class="w"> </span>goto<span class="w"> </span>proj
+</code></pre></div>
+<h2 id="help">Help<a class="headerlink" href="#help" title="Permanent link">&para;</a></h2>
+<p>Show Help.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Show help for mycommand</span>
+task<span class="w"> </span><span class="nb">help</span><span class="w"> </span>mycommand
+</code></pre></div>
+<h2 id="template">Template<a class="headerlink" href="#template" title="Permanent link">&para;</a></h2>
+<p>Manage task file templates</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Edit the default bash template</span>
+task<span class="w"> </span>template<span class="w"> </span>edit<span class="w"> </span>--name<span class="w"> </span>bash
+
+<span class="c1"># Edit/create a new custom template</span>
+task<span class="w"> </span>template<span class="w"> </span>edit<span class="w"> </span>--name<span class="w"> </span>custom
+
+<span class="c1"># Remove the custom template</span>
+task<span class="w"> </span>template<span class="w"> </span>rm<span class="w"> </span>--name<span class="w"> </span>custom
+
+<span class="c1"># List templates</span>
+task<span class="w"> </span>template<span class="w"> </span>list
+</code></pre></div>
+<h2 id="module">Module<a class="headerlink" href="#module" title="Permanent link">&para;</a></h2>
+<p>Manage modules.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Enable mymodule</span>
+<span class="c1"># Searches TASK_REPOS from $TASK_MASTER_HOME/config.env for the module if it not found locally.</span>
+task<span class="w"> </span>module<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--name<span class="w"> </span>mymodule
+
+<span class="c1"># Disable mymodule</span>
+task<span class="w"> </span>module<span class="w"> </span>disable<span class="w"> </span>--name<span class="w"> </span>mymodule
+
+<span class="c1"># List all enabled or disabled modules</span>
+task<span class="w"> </span>module<span class="w"> </span>list<span class="w"> </span>--all
+
+<span class="c1"># List all remotely available modules</span>
+task<span class="w"> </span>module<span class="w"> </span>list<span class="w"> </span>--remote
+
+<span class="c1"># List all enabled modules</span>
+task<span class="w"> </span>module<span class="w"> </span>list<span class="w"> </span>--enabled
+
+<span class="c1"># List all diabled modules</span>
+task<span class="w"> </span>module<span class="w"> </span>list<span class="w"> </span>--disabled
+
+<span class="c1"># Remove all disabled modules</span>
+task<span class="w"> </span>module<span class="w"> </span>clean
+</code></pre></div>
+<h2 id="driver">Driver<a class="headerlink" href="#driver" title="Permanent link">&para;</a></h2>
+<p>Manage task drivers</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Enable mydriver</span>
+<span class="c1"># Searches TASK_REPOS from $TASK_MASTER_HOME/config.env for the driver if it is not found locally</span>
+task<span class="w"> </span>driver<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--name<span class="w"> </span>mydriver
+
+<span class="c1"># Disable mydriver</span>
+task<span class="w"> </span>driver<span class="w"> </span>disable<span class="w"> </span>--name<span class="w"> </span>mydriver
+
+<span class="c1"># List installed drivers</span>
+task<span class="w"> </span>driver<span class="w"> </span>list
+
+<span class="c1"># List drivers available remotely</span>
+task<span class="w"> </span>driver<span class="w"> </span>list<span class="w"> </span>--remote
+</code></pre></div>
+<h2 id="state">State<a class="headerlink" href="#state" title="Permanent link">&para;</a></h2>
+<p>Interact with stored state information</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Show all current variables</span>
+task<span class="w"> </span>state<span class="w"> </span>show
+
+<span class="c1"># Set a variable for the current context.</span>
+task<span class="w"> </span>state<span class="w"> </span><span class="nb">set</span><span class="w"> </span>--key<span class="w"> </span>myvar<span class="w"> </span>--value<span class="w"> </span><span class="m">10</span>
+
+<span class="c1"># Remove a variable for the current context.</span>
+task<span class="w"> </span>state<span class="w"> </span><span class="nb">unset</span><span class="w"> </span>--key<span class="w"> </span>myvar
+
+<span class="c1"># Edit the variables for a command.</span>
+<span class="c1"># Uses the `DEFAULT_EDITOR` setting in $TASK_MASTER_HOME/config.env as the editor.</span>
+task<span class="w"> </span>state<span class="w"> </span>edit
+
+<span class="c1"># Remove all empty state files and bookmarks that refer to missing directories.</span>
+task<span class="w"> </span>state<span class="w"> </span>clean
+</code></pre></div>
+<h2 id="global">Global<a class="headerlink" href="#global" title="Permanent link">&para;</a></h2>
+<p>Global Utilities.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Update to the most recent release</span>
+task<span class="w"> </span>global<span class="w"> </span>update
+
+<span class="c1"># Update to the dev version (irreversible)</span>
+task<span class="w"> </span>global<span class="w"> </span>update<span class="w"> </span>--dev
+
+<span class="c1"># Update to version 1.0</span>
+task<span class="w"> </span>global<span class="w"> </span>update<span class="w"> </span>--version<span class="w"> </span><span class="m">1</span>.0
+
+<span class="c1"># Show version information</span>
+task<span class="w"> </span>global<span class="w"> </span>version
+</code></pre></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; hppr.dev
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/hppr-dev/bash-task-master" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["header.autohide", "navigation.expand", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "toc.integrate", "content.code.copy"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.407015b8.min.js"></script>
+      
+    
+  </body>
+</html>
