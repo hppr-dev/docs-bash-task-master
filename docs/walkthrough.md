@@ -67,7 +67,29 @@ If we ever forget what tasks are defined in the local context, we can run `task 
 ## Adding Arguments
 
 We can easily add arguments to our newly created tasks.
-We just need to implement the `arguments_start` function and change `task_start` to the following:
+
+### Terse form (task_spec and has_arg)
+
+Use **task_spec** to declare the task description and options in one line, and **has_arg** to check optional flags:
+
+``` bash
+task_spec start "Run the postgres database" "" "detach:d:bool name:n:str"
+
+task_start() {
+  ARG_NAME=${ARG_NAME:-mydb}
+  extra_args=""
+  has_arg detach && extra_args=--detach
+  docker run $extra_args --rm -it -e POSTGRES_PASSWORD=secret --name $ARG_NAME postgres
+}
+```
+
+The second empty argument to `task_spec` is for required args (none here); the third is for optional args.
+`has_arg detach` is true when the user passed `--detach` or `-d`.
+
+### Full form (arguments_* function)
+
+Alternatively, implement the `arguments_start` function and set the variables explicitly.
+This form is required for tasks with subcommands; see the [Bash driver documentation](/drivers#specifying-arguments).
 
 ``` bash
 arguments_start() {
@@ -86,11 +108,10 @@ task_start() {
   fi
   docker run $extra_args --rm -it -e POSTGRES_PASSWORD=secret --name $ARG_NAME postgres
 }
-
 ```
 
-The `START_OPTIONS` variable in the arguments defines what optional arguments the task accepts.
-If we had instead named this variable as `START_REQUIREMENTS` these areguments would be required.
+In the full form, the `START_OPTIONS` variable defines what optional arguments the task accepts.
+If you use `START_REQUIREMENTS` instead, those arguments would be required.
 Task execution does not start if a required argument is not supplied.
 The `START_DESCRIPTION` variable is used as a description of the task when `task help start` is called.
 Including a description for tasks is a good idea, as it is a simple way to document what a task is supposed to do.

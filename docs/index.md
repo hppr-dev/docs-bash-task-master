@@ -74,16 +74,16 @@ Add the following to the file and exit.
     
 ``` bash
 
-arguments_greet() {
-  GREET_DESCRIPTION="An example task!"
-  GREET_REQUIREMENTS="name:n:str"
-}
+task_spec greet "An example task!" "name:n:str" ""
 
 task_greet() {
   echo "Hello $ARG_NAME, good day to you!"
 }
 
 ```
+
+!!! note "Alternative: full form"
+    You can instead define an `arguments_greet()` function that sets `GREET_DESCRIPTION` and `GREET_REQUIREMENTS`. The full form is required for tasks with subcommands; see [Bash driver — Arguments](/drivers#specifying-arguments).
 
 4\. Run it!
 

@@ -4,7 +4,7 @@ Task files are the meat and potatoes of Bash Task Master.
 They hold all of the important procedures for a particular context.
 
 By default, Bash Task Master supports the bash task syntax for task files.
-See the [bash driver documentation](/drivers#bash-driver) for an indepth overview of the bash task syntax.
+See the [bash driver documentation](/drivers#bash-driver) for an in-depth overview of the bash task syntax, including [terse task definitions](/drivers#terse-task-definitions-task_spec-and-has_arg) (**task_spec** and **has_arg**) and the [full arguments_* form](/drivers#alternative-full-arguments_-function).
 
 ## Context Scoping
 

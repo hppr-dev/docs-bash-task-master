@@ -80,7 +80,43 @@ In the task we could access these values as `ARG_NAME`, `ARG_HOST` and `ARG_ITER
 
 !!! note
     All dashes (`-`) in subcommands and arguments are converted to underscores (`_`).
-    i.e. `task thing --my-way 100` would have `ARG_MY_WAY=100`.  
+    i.e. `task thing --my-way 100` would have `ARG_MY_WAY=100`.
+
+#### Terse task definitions (task_spec and has_arg)
+
+For tasks without subcommands, you can avoid writing a separate `arguments_TASKNAME` function by using the **task_spec** helper.
+It sets the same description and argument spec variables that the driver expects.
+
+**task_spec** takes the task name, description, required-args string, and optional-args string (use empty string `""` for none):
+
+``` bash
+# One line replaces the arguments_example function
+task_spec example "An example task" "in:i:str out:o:str" "force:f:bool"
+
+task_example() {
+  has_arg force && echo Forcing...
+  echo "IN:$ARG_IN OUT:$ARG_OUT"
+}
+```
+
+**has_arg** is a small helper for optional (boolean) arguments.
+Use it instead of `if [[ -n "$ARG_FORCE" ]]` when you only need to run something when the flag is set:
+
+``` bash
+has_arg force && echo Forcing...
+# instead of:
+# if [[ -n "$ARG_FORCE" ]]; then echo Forcing...; fi
+```
+
+Both **task_spec** and **has_arg** are provided by the bash driver and are available whenever your task file is sourced.
+
+!!! note
+    Tasks that use **subcommands** (e.g. `task foo bar`) must still use the full **arguments_TASKNAME** function, where you set `SUBCOMMANDS` and per-subcommand DESCRIPTION/REQUIREMENTS/OPTIONS.
+
+#### Alternative: full arguments_* function
+
+When you need subcommands or prefer to define everything in one place, define an **arguments_TASKNAME** function that sets the same variables (`DESCRIPTION`, `REQUIREMENTS`, `OPTIONS`, and for subcommands `SUBCOMMANDS` plus per-subcommand variables).
+The driver calls this function when present; if it is not present, it uses any variables already set (e.g. by **task_spec** when the file was sourced).
 
 #### Arguments Example
 
