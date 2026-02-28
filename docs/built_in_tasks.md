@@ -36,6 +36,8 @@ task init --driver mydriver
 
 List available tasks.
 
+Use `--json` or `-j` to output a JSON array of task names (e.g. `["task1","task2",...]`) for machine parsing. With no tasks, output is `[]`.
+
 ``` bash
 
 # List all tasks available
@@ -46,6 +48,10 @@ task list --global
 
 # List all local tasks
 task list --local
+
+# List all tasks as JSON (machine-readable)
+task list -a --json
+task list -a -j
 
 ```
 
@@ -102,10 +108,16 @@ task goto proj
 
 Show Help.
 
+Use `--json` or `-j` to output a single JSON object with `description`, `required`, `optional` (arrays of `{ "long", "short", "type" }`), and `subcommands` (array of objects with `name`, `description`, `required`, `optional`) for machine parsing. Both `task help mycommand --json` and `task help --json mycommand` work.
+
 ``` bash
 
 # Show help for mycommand
 task help mycommand
+
+# Show help as JSON (machine-readable)
+task help mycommand --json
+task help mycommand -j
 
 ```
 

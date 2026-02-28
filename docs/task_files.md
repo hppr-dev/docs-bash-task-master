@@ -62,6 +62,17 @@ These are set up to be loaded in the .bashrc during installation.
 
 Any other additions to the user environment have to be initiated by the user.
 
+## Global flags
+
+Global flags are given before the task name and control runner output:
+
+| Flag | Long form | Effect |
+|------|-----------|--------|
+| `+v` | `+verbose` | Enable verbose runner diagnostics (logged to stderr). Example: `task +v run_test` |
+| `+s` | `+silent` | Suppress runner and driver chatter (stderr); only the task’s stdout is shown. Use for machine-parseable output. Example: `task +s list -a` |
+
+If both are given, the last one wins. Example: `task +v +s run_test` runs in silent mode.
+
 ## Task Variables
 
 Each task function is spawned inside of a subshell by the task function.
@@ -101,7 +112,8 @@ For the sake of completeness, the following variables are also accessable, but s
 | DRIVER_VALIDATE_TASK_FILE | Driver function to validate task file | bash_validate_file |
 | LOCAL_TASKS_REG | A regex list of local tasks | `build|run|kill` |
 | GLOBAL_TASKS_REG | A regex list of global tasks | `list|help|global|driver|module` |
-| GLOBAL_VERBOSE | Set to true to log _tmverbose_echo calls to stdout | 1 |
+| GLOBAL_VERBOSE | Set by the `+v` or `+verbose` global flag; when set, _tmverbose_echo logs runner diagnostics to stderr | 1 |
+| GLOBAL_SILENT | Set by the `+s` or `+silent` global flag; when set, runner and driver chatter (stderr) is discarded so only task stdout is produced (for machine-parseable output) | 1 |
 | GLOBAL_TASK_FILE | The file to load global tasks | $TASK_MASTER_HOME/lib/global-tasks.sh |
 
 ### Task Variable Conventions
