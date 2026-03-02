@@ -49,6 +49,10 @@ task list --global
 # List all local tasks
 task list --local
 
+# List tasks from enabled modules
+task list --modules
+task list -m
+
 # List all tasks as JSON (machine-readable)
 task list -a --json
 task list -a -j
